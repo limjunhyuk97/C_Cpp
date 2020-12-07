@@ -7,7 +7,7 @@
 	
 2. struct 정의 방식 (+2)
 
-	- 방식 1 : typedef struct ... name	// typedef 사용방식 
+	- 방식 1 : typedef struct ... name	// typedef 사용방식
 	
 		typedef struct{
 			int ...
@@ -23,21 +23,14 @@
 		
 		
 3. struct 선언 방식 (+3)
-
-	- 방식 1 : struct name ... type1	// struct 정의와 동시에 선언 
-	
-		struct name{
-			int ...
-			char ...
-		} type1;
 		
-	- 방식 2 : struct name type1		// struct 정의 이후에 선언 
+	- 방식 1 : struct name type1		// struct 정의 이후에 선언 
 	
 		struct name type1;
 		type1.name = "...";
 		type1.age = ...;
 
-	- 방식 3 : name type1				// struct 정의 이후에 선언 
+	- 방식 2 : name type1				// struct 정의 이후에 선언 
 
 		name type1;
 		type1.name = "...";
