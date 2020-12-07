@@ -22,19 +22,23 @@
 		};
 		
 		
-3. struct 선언 방식 (+3)
+3. struct 선언 방식 (+2)
 		
 	- 방식 1 : struct name type1		// struct 정의 이후에 선언 
 	
+	```
 		struct name type1;
 		type1.name = "...";
 		type1.age = ...;
+	```
 
 	- 방식 2 : name type1				// struct 정의 이후에 선언 
-
+	
+	```
 		name type1;
 		type1.name = "...";
 		type1.age = ...;
+	```
 
 
 4.	struct 인자 초기화 
@@ -43,7 +47,7 @@
 	
 	- 충분한 value가 전달되지 못했다면 전달받지 못한 인자들은 0으로 초기화 된다.
 	
-	
+	```
 		typedef struct{
 			int x;
 			int y;
@@ -54,7 +58,7 @@
 		sample sam1 = { 2, 3, 2.5, 'Q'};		// x = 2, y = 3, t = 2.5, u = 'Q'
 		
 		sample sam2 = {2, 3 };					// x = 2, y = 3, t = 0.0, u = '\0'(NULL)	
-
+	```
 
 5. struct 요소 접근 방식 (+3)
 
@@ -62,6 +66,7 @@
 	 
 	- 포인터를 이용하는 방식
 	
+	```
 		- ptr -> element 			// Indirection
 			
 		- (*ptr).element			// Indirect Selection
@@ -70,7 +75,7 @@
 			person *ptr = &p1;
 			
 			(*ptr).element  ===  ptr ->element  ===  p1.element
-			
+	```		
 			
 6. struct 배열 사용 방식
 
