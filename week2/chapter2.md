@@ -99,3 +99,15 @@
 ## 7. malloc과 free를 대신하는 new와 delete
  - new 와 malloc, calloc. delete와 free 에는 차이가 있다.
  - class, 객체 생성시 문제가 발생할 수도 있으니 new와 delete를 이용하자.
+ - new, delete 이용법
+ ```
+   new 선언
+ 
+   (자료형) *ptr = new (자료형)            // 일반 변수
+   (자료형) *ptr = new (자료형)[배열크기]  // 배열일 경우
+   
+   delete 선언
+   
+   delete ptr;                             // 일반 변수 소멸
+   delete []ptr;                           // 배열 소멸
+```
