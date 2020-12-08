@@ -22,6 +22,15 @@
  - 이름의 충돌을 막기 위해 등장하였다.
  - :: 은 범위 지정 연산자이다. (살짝 js에서 객체를 부르는 느낌인 것같다.. 아직까지는!)
  - namespace 사용 시에 선언과 정의는 분리해 주는 것이 좋다.
+ ```
+namespace chapter01{
+  void simpleFunction(void);
+}
+
+void chapter01::simpleFunction(void){
+  std::cout<<"This is a simpleFunction in namespace chapter01\n";
+}
+ ```
  - namespace 안에 namespace가 있을 수 있다 - namespace의 중첩
  - 사용
    - using A::B;                    A속의 B를 그냥 앞으로 B라고 써라
