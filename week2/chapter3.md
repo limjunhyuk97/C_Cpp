@@ -99,7 +99,16 @@ namespace CAR_CONST{
 
 ### 5.3 class, 파일분할
   - .h 헤더파일에는 class 관련 선언을 집어넣는다.
+    - class와 **관련된 변수들도 namespace를 지정해서 넣어줄 수 있다.**
   - .cpp에는 헤더파일 속 class의 정의를 집어넣는다.
+    - **무조건 선언이 들어있는 .h 헤더파일을 선언 해줘야**한다.
+    - 또한 **class의 정의를 할 땐 namespace 한정을 해줘야 한다.**
+```cpp
+#include "head.h"           // head.h 헤더 선언 요구
+void SomeClass::foo(){      // 정의 시에 class이름:: 으로 namespace 한정요구
+    // function 내용
+}
+```
 
 ---------------------------------------------------------------------------
 
