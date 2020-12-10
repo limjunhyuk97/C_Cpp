@@ -97,7 +97,7 @@
 ```
 
 ## 7. malloc과 free를 대신하는 new와 delete
- - new 와 malloc, calloc. delete와 free 에는 차이가 있다.
+ - **new 와 delete**는 **runtime중 heap에 할당하는 동적 할당방식과 관련**이 있다.
  - class, 객체 생성시 문제가 발생할 수도 있으니 new와 delete를 이용하자.
  - new, delete 이용법
  ```
