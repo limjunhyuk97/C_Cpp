@@ -23,7 +23,7 @@ Color whatColor = GREEN;
 Color whatColor(GREEN);
 ```
 ## 출력
-- 열거형 변수를 출력하면, 열거자에 지정된 특정 정수 값을 출력한다. 
+- 열거형 변수를 출력하면, 열거자 지정 정수 값을 출력한다. 
 ```cpp
 cout << whatColor // 0 출력
 ```
