@@ -146,10 +146,12 @@ class FOO{
 private:
   int num;
 public:
-  FOO & SelfReferenceFunction(int n){   // FOO라는 function은 기존 객체의 num 멤버변수에 n을 더하고, 그 결과를 새로운 참조자로 반환하는 멤버함수다..!
+  FOO & SelfReferenceFunction(int n){
     num += n;
     return *this;
-  }                                     
+  }
+  
+// FOO라는 function은 기존 객체의 num 멤버변수에 n을 더하고, 그 결과를 새로운 참조자로 반환하는 멤버함수다..!
 
 };
 ```
