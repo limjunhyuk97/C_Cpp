@@ -69,21 +69,99 @@
 
 ### 5.2.1. 반환형과 자료형, 참조자
  - 반환형이 참조형이면 반환값을 무엇으로 받느냐에 따라서 결과가 달라진다!
- - (자료형)& &ref반환 -> &num받기 O
+
+- (자료형)& &ref반환 -> &num받기 O
  - 참조자 return, 반환형이 참조자형
-   - 반환형을 반환형이 받으므로, ref와 num이 같은 자료공간 가리키게 된다.
+   - **참조자가 참조자를 받으므로**, **ref와 num이 같은 자료공간 가리키게** 된다.
+
+```cpp
+int& RefRetFuncOne(int &ref){
+  ++ref;
+  return ref;
+}
+
+int main(void){
+ 
+ int num1 = 1;
+ int &num2 = RefRetFuncOne(num1);
+ // num1 과 num2 는 완벽히 같은 공간을 가리키게 된다.
+ // ref는 지역변수이므로, 후에 사라진다.
+ 
+ return 0;
+}
+```
+   
  - (자료형)& &ref반환 -> num받기 O
  - 참조자 return, 반환형이 참조자형
-   - 자료형이 반환형을 받으므로, ref가 가리키는 자료공간 속 값을 num이 가져가게 된다.
+   - **참조자X가 참조자를 받으므로**, **ref와 num가 다른 자료공간 가리키게** 된다.
+   - **ref가 가리키는 자료공간 속 값을 num이 가져가게** 된다.
+   
+```cpp
+int& RefRetFuncTwo(int &ref)
+  ++ref
+  return ref;
+}
+
+int main(void){
+  
+  int num1 = 1;
+  int num2 = RefRetFuncTwo(num1);
+  // num1 과 num2는 다른 공간이다. 단지, num2가 RefRetFuncTwo(num1)의 값을 받았을 뿐이다.
+  
+  return 0;
+}
+```
+   
  - (자료형) &ref -> num받기 O
  - 참조자 return, 반환형이 기본자료형
-   - 변수 값을 num이 가져감
+   - **참조자 값을 토대로 참조자X를 리턴하고, 그것을 참조자X가 받으므로 **, **ref와 num가 다른 자료공간 가리키게** 된다.
+ 
+ ```cpp
+ int RefRetFuncThree(int &ref)
+   ++ref;
+   return ref;
+ }
+ 
+ int main(void){
+   int num1 = 1;
+   int num2 = RefRetFuncThree(num1);
+   // num1과 num2는 다른공간이다. num2는 함수의 return 값만 받아온다.
+ }
+ ```
+   
  - (자료형) &ref -> &num받기 X
  - 참조자 return, 반환형이 기본자료형
-   - 상수 값 같은 반환형이 num에 안들어감.
+   - **상수 값 같은 반환형**이 **참조자 안에 안들어감.**
+   
+```cpp
+int RefRetFuncFour(int &ref){
+  ++ref;
+  return ref;
+}
+
+int main(void){
+  int num1 = 1;
+  int &num2 = RefRetFuncFour(num1);
+  // &num2 참조자에 상수 넣는 것과 다를게 없으므로 안됨.
+```
+
  - (자료형)& (기본형)반환 -> X
    - 기본자료형 return, 반환형이 참조자형
    - 곧 사라질 지역변수 공간의 참조자를 반환하는 것이므로 불가능
+   
+```cpp
+  int& RefRetFuncFive(int ref){
+    ++ref;
+    return ref;
+  }
+int main(void){
+  int num1 = 1;
+  int &num2 = RefRetFuncFive(num1);
+  // ref는 지역변수이므로, 반환 후에 사라지는 공간을 참조할 수 없다.
+
+}
+  
+```
 
 ## 6. const 참조자
  - 상수화된 변수, 임시변수의 값을 참조
