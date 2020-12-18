@@ -5,10 +5,17 @@
 #pragma once
 namespace CONTRACT_MODULE {
 
-	
-	bool ErrFilterId(int id, int hashValue, std::vector < std::vector <CUSTOMER_INFO::Customer> > arr);
+	namespace ERR_MODULE {
+		bool ErrFilterIdUnknown(int id, int hashValue, std::vector < std::vector <CUSTOMER_INFO::Customer> > arr);
 
-	void ErrPrintId();
+		int ErrFilterIdDataType();
+
+		int ErrFilterDepoMoneyDataType();
+
+		int ErrFilterWithdrawMoneyDataType();
+
+		void ErrPrintId();
+	}
 
 	int IdIndexLocatingFunc(int id, int hashedId, std::vector < std::vector <CUSTOMER_INFO::Customer> >& container);
 
@@ -20,7 +27,6 @@ namespace CONTRACT_MODULE {
 		int hashValue;
 		int money;
 		std::string name;
-		char tmp;
 	public:
 		void newAccount(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr);
 	};
