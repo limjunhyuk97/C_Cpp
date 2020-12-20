@@ -40,13 +40,19 @@ int main(void){
 
 ### 4.1 구조체는 연관되는 data를 묶어서 구현, 관리하기 용이하게 만들어준다.
 
-### 4.2 cpp 구조체 변수 선언
+### 4.2.0 구조체 변수 선언
 ```cpp
 struct struct_name real_name; // struct 구조체이름 객체이름
 struct_name real_name;        // 구조체이름 객체이름
 
 // struct Car car;
 // Car car;
+```
+
+### 4.2.1 구조체와 class의 초기화
+```cpp
+structEx{ , , };  // struct는 {} 안에 멤버들의 값을 넣는다.
+classEx();        // class는 () 안에 멤버들의 값을 넣는다.
 ```
 
 ### 4.3.0 구조체 안에 함수 넣기
@@ -167,44 +173,6 @@ ClassName * objName_2;  // 포인터변수 선언
      - **컴파일** : 원시파일.cpp을 목적파일.obj로 바꿔준다.
      - **링크** : 목적파일.obj을 실행파일.exe로 바꿔준다. 
      - **컴파일러** : 원시파일.cpp에서 실행파일.exe을 생성하는 일련의 과정을 진행시켜준다.
-    
----------------------------------------------------------------------------
-
-## string 객체에 대한 발견
-
-### 1. class 멤버 함수에 문자열 넘기기
-   - string 매개변수를 통해서 넘기기 가능
-   - char * sptr 포인터 매개변수로 넘기기 가능
-   
-### 2. 문자열 class 멤버 변수에 저장
-   - string형_변수1 = string형_변수2 처럼 넘기기 가능
-   - strcpy(char형_변수1, char형_변수2); 로 넘기기 가능
-   - **string 문자열은 string 문자열끼리**, **char형 문자열은 char형 문자열끼리** 주고받자!
-   
-```cpp
-// string형 쓰기
-void Printer::SetString(string ptr){
-  str = ptr;
-}
-pnt.SetString("Hello World!");
-```  
-
-```cpp
-// char형 쓰기
-void Printer::SetString(char *sptr){
-  strcpy(str, sptr);
-}
-pnt.SetString("Hello World!");
-```
-   
-### 3. string 문자열 출력
-   - cout<< string_변수명;
-   - cout<< char형_변수명;
-```cpp
-void Printer::ShowString(){
-  cout << str << endl;
-}
-```  
 
 
 
