@@ -52,7 +52,7 @@ struct_name real_name;        // 구조체이름 객체이름
 ### 4.2.1 구조체와 class의 초기화
 ```cpp
 structEx{ , , };  // struct는 {} 안에 멤버들의 값을 넣는다.
-classEx();        // class는 () 안에 멤버들의 값을 넣는다.
+classEx( , , );        // class는 () 안에 멤버들의 값을 넣는다.
 ```
 
 ### 4.3.0 구조체 안에 함수 넣기
