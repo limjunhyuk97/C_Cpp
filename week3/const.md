@@ -1,4 +1,4 @@
-## const , 포인터, 참조자, 함수
+## const , 포인터, 참조자, 함수, 객체
 
 ### 1.0 const와 포인터 (visual studio 환경에서 실험해봤을때..)
   - **const data_type** \*ptr , data_type **const \*ptr**
@@ -62,8 +62,46 @@
   ref = b   // 불가능
 ```
 
-### 3. const 와 멤버함수
+### 3. const 함수와 멤버함수
   - 멤버함수 끝 const 선언
   - **이 함수 내에서 멤버 변수 내에 저장된 값을 변경하지 않겠다**는 의미!
   
+### 4. const 함수와 함수 오버로딩
+  - **const 함수인지, 아닌지를 바탕**으로 **함수 오버로딩이 이루어진다.**
+```cpp
+// class 선언
+class A{
+private:
+  int num;
+public:
+  void FooFunc(){ ... }
+  void FooFunc() const { ... }
+};
+
+// const 객체 생성
+const A a;
+A b;
+a.FooFunc();  // FooFunc() const{ ... } 호출
+b.FooFunc();  // FooFunc(){ ... } 호출
+``` 
+  
+### 5. const 객체 선언
+  - **객체의 const 멤버함수만 부를 수 있게**, **const 객체 선언**을 할 수 있다.
+  - **const로 한정하지 않은 멤버함수들은 호출이 불가**능하다.
+```cpp
+// class 선언
+class A{
+private:
+  int num;
+public:
+  void FooFunc(){ ... }
+  void FooConstFunc() const { ... }
+};
+
+// const 객체 생성
+const A a;
+a.FooFunc();      // 호출 불가능
+a.FooConstFunc(); // 호출 가능
+```
+
   
