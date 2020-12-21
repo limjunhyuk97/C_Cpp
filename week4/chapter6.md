@@ -1,4 +1,4 @@
-# Friend, Static, Const
+# Const, Friend, Static
 
 ## Const
 
@@ -42,7 +42,7 @@ b.FooFunc();  // FooFunc(){ ... } 호출
 
 ## Friend
 
-### 1. class의 friend 선언 / (private 멤버 접근)
+### 1. class의 friend 선언 / (private 멤버 접근) / friend class class_name
   - class A가 class B를 friend라고 선언했을 때, B는 A의 private 멤버들에 접근이 가능하다.
   - **public 영역에서든, private 영역에서든, friend 선언이 이루어 진다면**, private 멤버들에 접근 가능.
 
@@ -104,7 +104,7 @@ int main(void) {
 ### 2. friend 선언 사용시기
   - friend 선언은 지나치면 정보은닉을 무너뜨릴 수 있기에 위험할 수 있다.
   
-### 3. 함수의 friend 선언 / (전역, 멤버 함수 접근)
+### 3. 함수의 friend 선언 / (전역, 멤버 함수 접근) / friend return_type_def class_name::func_name()
   - 예시를 봤을 때 전역함수와, 다른 class의 멤버함수를 friend로 사용하는 이유로 두가지를 추릴 수 있을 것 같다.
     - friend로 선언하였기에 **class2 함수가**, **class1 private 멤버변수에 직접접근** 가능하다.
     - **class2 함수가 구동**하면서 **class2와 class1의 멤버변수들의 변화를 모두 견인**할 수 있다.
@@ -172,5 +172,109 @@ int main(void) {
 void ShowPointPos(const Point& pos) {
 	cout << "x : " << pos.x << ", ";
 	cout << "y : " << pos.y << endl;
+}
+```
+
+## Static
+
+### 1. C 언어에서의 static
+  - 전역변수에서의 static
+     - 한번만 초기화 됨.
+     - 선언된 파일 내에서만 참조를 허용함.
+     - 초기화 값이 입력 안되면 0으로 초기화.
+```cpp
+// static.cpp 파일
+
+#include <stdio.h>
+static int num = 0;
+// '정적' 전역 변수
+void foo(){
+   ...
+}
+
+// main.cpp 파일
+
+#include <stdio.h>
+extern int num;
+// 다른 파일에서 변수가져오는 extern 사용할 수가 없음.
+int main(){
+   ...
+}
+
+```     
+  - 함수 내에서의 static
+     - 한번만 초기화됨.
+     - 지역변수와는 다르게 함수종료되도 값이 소멸되지 않음
+     - 초기화 값이 입력 안되면 0으로 초기화.
+     
+  - static 정적변수는 프로그램 시작시 생성, 초기화되고, 프로그램 종료시 사라진다.
+     
+### 2. C++ 에서의 static 등장
+  - 전역공간에 class들과 관여하는 전역변수들을 풀어 놓으면 문제 생길 수도 있음
+    - **class 내부에 전역변수를 넣어버리자.** -> **class 내부에 static 멤버변수를 넣자.** (**static 멤버변수**를 **class 변수**라고도 함)
+
+### 3. static 멤버변수(class 변수) 특성 (객체 멤버 아니다!)
+  - 객체들 각각에 할당되는 메모리 공간이 아니라, **객체들이 공유**하는 **하나의 메모리 공간**
+  - **객체들 외부에 메모리 공간 존재.**
+  - **멤버함수로 접근할 수 있다.**
+  - **생성자 함수 내에서 초기화 해서는 안되고, 외부에서 초기화시켜야 한다.**
+    - 프로그램 시작과 동시에 메모리 공간에 할당되는 변수이기 때문에, 동시에 할당시켜주려면 객체 생성보다 먼저 초기화 해야함.
+    - 그러므로, 외부에서 할당과 동시에 초기화 해야함..
+```cpp
+class SoSimple{
+public:
+  static int simObjCnt;
+private:
+  SoSimple(){
+    ++simObjCnt;
+  }
+};
+  int SoSimple::simObjCnt = 0;	// 초기화 시 class 선언 외부에서 해줘야 한다.
+```
+  - **static 멤버변수는 클래스 이름으로 외부에서 접근이 가능하다!** / **일반 멤버변수는 클래스 이름으로 외부에서 접근할 수 없다!**
+```cpp
+SoSimple::simObjCnt	// class명으로 접근
+SoSimple sim1;
+sim.simObjCnt		// 객체명으로 접근
+```
+
+### 4. static 멤버함수 특성 (객체 멤버 아니다!)
+  - 선언된 클래스의 **객체들이 공유**한다.
+  - **객체들 외부에 존재**한다. (**객체의 멤버가 아니다!**)
+  - **static 멤버함수 내에서는 static 멤버변수와 static 멤버함수만 호출이 가능하다!**
+  - **static 멤버함수는 클래스 이름으로 외부에서 접근이 가능하다!** / **일반 멤버함수는 클래스 이름으로 외부에서 접근할 수없다!**
+```cpp
+class SoSimple{
+private:
+  static int simObjCnt;
+  int num;
+public:
+  static void Adder(int n){
+    simObjCnt += n;
+    num += n; // 컴파일 에러 발생, static 멤버끼리 연관에서 엮일 수 있음. (static 멤버함수와, static 멤버변수만 호출 가능.)
+  }
+};
+int SoSimple::simObjCnt = 0;
+
+SoSimple::Adder(3);
+// class 내 함수에 접근하는 방식.
+// simObjCnt값이 0에서 3으로 증가!
+```
+
+### 5. const static 멤버변수의 특성
+  - class 정의 시에 **선언과 동시에 초기화 가능**
+  - **지정된 값이 유지**된다!
+```cpp
+class Foo{
+public:
+  const static int a = 20;
+  const static int b = 30;
+};
+
+int main(void){
+  foo f1;
+  f1.a	// a에 저장된 20 값을 나타냄.
+  
+  ...
 }
 ```
