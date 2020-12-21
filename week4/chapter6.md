@@ -105,9 +105,10 @@ int main(void) {
   - friend 선언은 지나치면 정보은닉을 무너뜨릴 수 있기에 위험할 수 있다.
   
 ### 3. 함수의 friend 선언 / (전역, 멤버 함수 접근)
-  - 예시를 봤을 때 전역함수와, 다른 class 함수를 friend로 사용하는 이유로 두가지를 추릴 수 있을 것 같다.
+  - 예시를 봤을 때 전역함수와, 다른 class의 멤버함수를 friend로 사용하는 이유로 두가지를 추릴 수 있을 것 같다.
     - friend로 선언하였기에 **class2 함수가**, **class1 private 멤버변수에 직접접근** 가능하다.
     - **class2 함수가 구동**하면서 **class2와 class1의 멤버변수들의 변화를 모두 견인**할 수 있다.
+    - **자주 사용되는 함수를 전역에** 빼두고, **여러 class에서 friend 선언을 통해서 끌어와서 쓸 수 있을 것**이다.
 ```cpp
 #include <iostream>
 using namespace std;
