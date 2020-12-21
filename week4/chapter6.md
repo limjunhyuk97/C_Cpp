@@ -42,7 +42,7 @@ b.FooFunc();  // FooFunc(){ ... } 호출
 
 ## Friend
 
-### 1. class의 friend 선언
+### 1. class의 friend 선언 / (private 멤버 접근)
   - class A가 class B를 friend라고 선언했을 때, B는 A의 private 멤버들에 접근이 가능하다.
   - **public 영역에서든, private 영역에서든, friend 선언이 이루어 진다면**, private 멤버들에 접근 가능.
 
@@ -104,5 +104,72 @@ int main(void) {
 ### 2. friend 선언 사용시기
   - friend 선언은 지나치면 정보은닉을 무너뜨릴 수 있기에 위험할 수 있다.
   
-### 3. 함수의 friend 선언
-  - 
+### 3. 함수의 friend 선언 / (전역, 멤버 함수 접근)
+```cpp
+#include <iostream>
+using namespace std;
+
+class Point;
+// Point class 존재 선언.
+
+class PointOP {
+private:
+	int opcnt;
+public:
+	PointOP() : opcnt(0) {}
+
+	Point PointAdd(const Point&, const Point&);
+	Point PointSub(const Point&, const Point&);
+	// 매개인자 명을 포함하지 않는 방식의 선언도 가능하다.
+
+	~PointOP() {
+		cout << "Operation times : " << opcnt << endl;
+	}
+	// 종료되면서 몇번 실행됬는지 출력해주는 역할.
+};
+
+class Point {
+private:
+	int x;
+	int y;
+public:
+	Point(const int &xpos, const int &ypos) :x(xpos), y(ypos){}
+
+	friend Point PointOP::PointAdd(const Point&, const Point&);
+	friend Point PointOP::PointSub(const Point&, const Point&);
+	// Point 객체를 반환하는 PointOP라는 class 선언 안에 있는 PointAdd함수와, PointSub함수에 대해 friend선언
+	
+	friend void ShowPointPos(const Point&);
+	// void를 반환하는 전역에 있는 ShowPointPos함수에 대해 friend 선언
+};
+
+Point PointOP::PointAdd(const Point& pnt1, const Point& pnt2) {
+	opcnt++;
+	return Point(pnt1.x + pnt2.x, pnt1.y + pnt2.y);
+	// Point 클래스의 friend로 선언되었기에, PointOP의 함수 PointAdd가 Point클래스의 private 멤버변수에 직접 접근 가능. 
+}
+
+Point PointOP::PointSub(const Point& pnt1, const Point& pnt2) {
+	opcnt++;
+	return Point(pnt1.x - pnt2.x, pnt1.y - pnt2.y);
+	// Point 클래스의 friend로 선언되었기에, PointOP의 함수 PointSub가 Point클래스의 private 멤버변수에 직접 접근 가능.
+}
+
+int main(void) {
+
+	Point pos1(1, 2);
+	Point pos2(2, 4);
+	PointOP op;
+	ShowPointPos(op.PointAdd(pos1, pos2));
+	ShowPointPos(op.PointSub(pos2, pos1));
+	return 0;
+}
+
+void ShowPointPos(const Point& pos) {
+	cout << "x : " << pos.x << ", ";
+	cout << "y : " << pos.y << endl;
+}
+```
+  - 예시를 봤을 때 전역함수와, 다른 class 함수를 friend로 사용하는 이유로 두가지를 추릴 수 있을 것 같다.
+    - friend로 선언하였기에 **class2 함수가**, **class1 private 멤버변수에 직접접근** 가능하다.
+    - **class2 함수가 구동**하면서 **class2와 class1의 멤버변수들의 변화를 모두 견인**할 수 있다.
