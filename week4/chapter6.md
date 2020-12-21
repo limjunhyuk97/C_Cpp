@@ -100,3 +100,6 @@ int main(void) {
 ### 1. friend 선언이란?
   - class A가 class B를 friend라고 선언했을 때, B는 A의 private 멤버들에 접근이 가능하다.
   - **public 영역에서든, private 영역에서든, friend 선언이 이루어 진다면**, private 멤버들에 접근 가능.
+  
+### 2. friend 선언 사용시기
+  - friend 선언은 지나치면 정보은닉을 무너뜨릴 수 있기에 위험할 수 있다.
