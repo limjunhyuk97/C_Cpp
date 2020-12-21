@@ -278,3 +278,16 @@ int main(void){
   ...
 }
 ```
+
+## Mutable
+
+### 1. mutable의 역할
+  - mutable은 const 함수 내에서 한시적으로 값의 변경을 허용할 변수를 지정해주는 것이다.
+```cpp
+mutable int a = 3;
+...
+void foo(int a) const{
+  ++a;	// const 함수더라도 a 변수에 mutable 선언을 했기에, 변수 값의 변경이 가능하다.
+};
+```
+  - mutable 은 c에서 goto: 급으로 권장되지 않는 것 같다.
