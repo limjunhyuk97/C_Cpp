@@ -64,6 +64,8 @@ SimpleClass sc1; O
 SimpleClass *ptr = new SimpleClass(); O
 SimpleClass *ptr = new SimpleClass; O
 ```
+ - **생성자 함수를 정의**하면, **디폴트 생성자는 생성되지 않는다.**
+   - 그러므로, **생성자 함수가 정의된 경우**에는 그 **형식에 맞게 초기화시 값 할당이 요구**된다! **<생성자 불일치>**
 
 ### 3.3 생성자의 사용
  - InitMembers를 생성자 안에 넣어서 활용할 수도 있다.
