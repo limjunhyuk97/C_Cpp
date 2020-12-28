@@ -9,12 +9,13 @@ namespace CUSTOMER_INFO {
 	public:
 		Customer(int id, std::string name, int reserve);
 		Customer();
-		bool IdCheck(int input);
+		Customer(const Customer& ref);
+		bool IdCheck(int input) const;
 		void ReserveIn(int in);
 		void ReserveOut(int out);
-		int IdReturn();
-		int ReserveReturn();
-		std::string NameReturn();
+		int IdReturn() const;
+		int ReserveReturn() const;
+		std::string NameReturn() const;
 	};
 
 }
