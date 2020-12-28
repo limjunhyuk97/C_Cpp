@@ -10,9 +10,10 @@
 using namespace std;
 namespace CONTRACT_MODULE {
 
+	// namespace ERR_MODULE start
 	namespace ERR_MODULE {
 		bool ErrFilterIdUnknown(int id, int hashValue, std::vector < std::vector <CUSTOMER_INFO::Customer> > arr) {
-			if (CONTRACT_MODULE::IdIndexLocatingFunc(id, hashValue, arr) == 0) return false;
+			if (CONTRACT_MODULE::IdIndexLocatingFunc(id, hashValue, arr) == -1) return false;
 			else return true;
 		}
 
@@ -43,12 +44,16 @@ namespace CONTRACT_MODULE {
 			}
 		}
 
-		void ErrPrintTy() {}
+		void ErrPrintId() {
+			cout << ERRMSG_ID;
+		}
+		
 	}
+	// namespace ERR_MODULE end
 
 	int IdIndexLocatingFunc(int id, int hashedId, std::vector < std::vector <CUSTOMER_INFO::Customer> >& container) {
-		int ans = 0;
-		if (container[hashedId].size() == 0) return 0;
+		int ans = -1;
+		if (container[hashedId].size() == 0) return -1;
 		else {
 			for (int i = 0; i < container[hashedId].size(); ++i) {
 				if (container[hashedId][i].IdReturn() == id) {
@@ -56,7 +61,7 @@ namespace CONTRACT_MODULE {
 					break;
 				}
 			}
-			if (ans == 0) return 0;
+			if (ans == -1) return -1;
 			else return ans;
 		}
 	}
@@ -65,7 +70,6 @@ namespace CONTRACT_MODULE {
 		return num % 50;
 	}
 
-	
 	void Account::newAccount(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr) {
 
 		cout << "\n[계좌개설]\n";
@@ -84,7 +88,6 @@ namespace CONTRACT_MODULE {
 
 	}
 
-	
 	void Deposit::newDeposit(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr) {
 
 		cout << "\n[계좌입금]\n";
@@ -99,7 +102,7 @@ namespace CONTRACT_MODULE {
 		money = ERR_MODULE::ErrFilterDepoMoneyDataType();
 		CUSTOMER_INFO::Customer& exactLocation = arr[HashingFunc(id)][IdIndexLocatingFunc(id, HashingFunc(id), arr)];
 		exactLocation.ReserveIn(money);
-		cout << "입금완료 / 잔액 : " << exactLocation.ReserveReturn() << endl;
+		cout << "입금완료 / 잔액 : " << exactLocation.ReserveReturn() << endl<<endl;
 	}
 
 	void Withdrawal::newWithdrawal(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr) {
@@ -115,11 +118,11 @@ namespace CONTRACT_MODULE {
 		money = ERR_MODULE::ErrFilterWithdrawMoneyDataType();
 		CUSTOMER_INFO::Customer& exactLocation = arr[HashingFunc(id)][IdIndexLocatingFunc(id, HashingFunc(id), arr)];
 		exactLocation.ReserveOut(money);
-		cout << "입금완료 / 잔액 : " << exactLocation.ReserveReturn() << endl;
+		cout << "입금완료 / 잔액 : " << exactLocation.ReserveReturn() << endl<<endl;
 
 	}
 
-	void PrintAllAccount::NewPrintAllAccount(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr) {
+	void PrintAllAccount::NewPrintAllAccount(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr) const {
 		int cnt = 0;
 		for (int i = 0; i < arr.size(); ++i) {
 			if (arr[i].size() == 0) continue;
