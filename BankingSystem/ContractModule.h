@@ -51,9 +51,8 @@ namespace CONTRACT_MODULE {
 
 	class PrintAllAccount {
 	public:
-		void NewPrintAllAccount(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr);
+		void NewPrintAllAccount(std::vector< std::vector<CUSTOMER_INFO::Customer> >& arr) const;
 	};
-
 	class Branch {
 	private:
 		int select;
