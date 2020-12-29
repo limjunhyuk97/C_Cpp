@@ -133,8 +133,75 @@ class B : public A{
     
 # 상속(Inheritance)의 형태
 
-## 1. 3가지 접근제어지시자
+## 0. public, protected, private
+  - **public, protected, private은 접근제어 지시자로 사용되기도 하지만, 상속형태의 명시자로도 사용된다.**
 
+## 1. 3가지 접근제어지시자, 특징
+ ||private|protected|public|
+ |:---:|:---:|:---:|:---:|
+ |접근 허용 범위|좁음|중간|넓음|
+ |외부에서의 접근|불가능|불가능|가능|
+ |상속 시에|은닉|상속|상속|
+ |유도클래스에서의 접근|불가능(은닉)|가능|가능|
+ |자체클래스에서의 접근|가능|가능|가능|
+  - **객체에서 protected는 private과 같은 지위를 갖는다.**
+  - **protected와 private의 다른 점은 상속상황에서 유도클래스내에서의 은닉여부이다.**
+  
+## 2. 3가지 상속, 특징
+  - **! 상속 == ! 보다 제한범위가 큰 멤버들을 !로 상속받겠다.**
+  - **protected 상속**
+    - protected보다 넓은 범위의 접근을 허용하는 멤버(public 멤버)를 protected로 상속받는다.
+    - 기존 protected 멤버는 protected 속성으로 상속되고, 정보은닉이 일어나지 않기에 유도 class내에서 바로 접근 가능하다.
+    - 기존 private멤버는 private 속성으로 상속되고, 정보은닉에 의거하여 유도 class내에서 바로 접근은 불가하다.
+    - 유도 class에서 멤버들의 취급
+  ||기초class|유도class|
+  |:---:|:---:|
+  |private|은닉|private|
+  |protected|protected|protected|
+  |public|protected|public|
+    - **객체에서 protected는 private같은 지위를 갖는다.**
+    - **protected와 private의 다른 점은 상속상황에서 유도클래스내에서의 은닉여부이다.**
+  
+  - **private 상속**
+    - private보다 넓은 범위의 접근을 허용하는 멤버(protected, public 멤버)를 private으로 상속받는다.
+    - 기존 private멤버는 private 속성으로 상속되고, 정보은닉에 의거하여 유도 class내에서 바로 접근은 불가하다.
+    - 유도 class에서 멤버들의 취급
+  ||기초 class|유도 class|
+  |:---:|:---:|:---:|
+  |private|은닉|private|
+  |protected|private|private|
+  |public|private|public|
+    - **객체에서 protected는 private과 같은 지위를 갖는다.**
+    - **protected와 private의 다른 점은 상속상황에서 유도클래스내에서의 은닉여부이다.**
+  - **public 상속**
+    - public보다 넓은 범위의 접근을 허용하는 멤버를 public 상속받는 것인데, 그냥 기초 class의 내용을 그대로 상속받는다.
+    - 기존 private멤버는 private 속성으로 상속되고, 정보은닉에 의거하여 유도 class내에서 바로 접근은 불가하다.
+    - 유도 class에서 멤버들의 취급
+  ||기초 class|유도 class|
+  |:---:|:---:|:---:|
+  |private|은닉|private|
+  |protected|protected|protected|
+  |public|public|public|
+    - **객체에서 protected는 private과 같은 지위를 갖는다.**
+    - **protected와 private의 다른 점은 상속상황에서 유도클래스내에서의 은닉여부이다.** 
+  - **근데 왠만하면 public상속만 사용한다고 하더라..!**
+    
+# 상속(Inheritance)의 조건
+
+## 1. 상속은 특별한 상황적 조건과, 필요가 수반될 때 사용하는 것이 가장 좋다.
+  - 조건
+  - 필요 (왜?) 
+  
+## 2. 상속의 조건
+  - IS-A 관계의 성립
+    - IS-A 관계란, "~은 곧 ~이다."의 관계가 성립하는 경우를 말한다.
+    - UML 상속표현으로 나타낼 수 있다. (Unified Modeling Language, UML)
+
+  - HAS-A 관계의 성립
+    - HAS-A 관계란, "~이 ~을 갖고있다."의 관계가 성립하는 경우를 말한다.  
+    - 그러나, 이 경우는 **컨트롤 객체를 만드는 것처럼, 상속이 아닌 다른 방식으로 소유관계를 구현하는 것이 나은 경우가 많다.**
+  
+  
     
     
     
