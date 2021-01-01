@@ -139,10 +139,9 @@ ptrA->fooB();
 
 ptrB = ptrA;
 // 불가능하다. 마찬가지로 AAA class의 포인터가 BBB class 객체를 참조하고 있지 않을 수도 있기 떄문이다.
-
-
-
 ```
+
+
   
   
   
