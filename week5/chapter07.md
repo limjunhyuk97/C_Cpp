@@ -174,7 +174,7 @@ class B : public A{
 ||기초 class|유도 class|
 |:---:|:---:|:---:|
 |**private**|은닉|private|
-|**protected**|private|private|
+|**protected**|private|protected|
 |**public**|private|public|
 
   - **public 상속**
@@ -190,11 +190,13 @@ class B : public A{
 
   - **근데 왠만하면 public상속만 사용한다고 하더라..!**
     
-# 상속(Inheritance)의 조건
+# 상속(Inheritance)의 조건과 필요
 
 ## 1. 상속은 특별한 상황적 조건과, 필요가 수반될 때 사용하는 것이 가장 좋다.
   - 조건
+    - IS-A관계의 성립. (가끔 HAS-A 관계의 성립 시에!)
   - 필요 (왜?) 
+    - 상속을 통해서 일련의 클래스에 공통의 규약을 정의할 수 있다!
   
 ## 2. 상속의 조건
   - IS-A 관계의 성립

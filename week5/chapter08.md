@@ -126,20 +126,23 @@ class BBB : public AAA{
 // AAA가 상위 class, BBB가 하위 class라고 할때!
 
 AAA *ptrA;
-BBB *ptrB;
-
-ptrA = new BBB(...);
+ptrA = new BBB();
 // 가능하다. BBB가 AAA를 상속하는 class이기 때문에 AAA의 성질을 갖고 있어서 할당가능하다고 판단한 것이다.
 
-ptrB = new BBB(...);
-ptrA = ptrB;
+BBB *ptrB = new BBB();
+AAA *ptrA = ptrB;
 // 가능하다. 위와 같은 원리이다.
 
+AAA *ptrA = new BBB();
 ptrA->fooB();
 // 불가능하다. AAA class의 포인터가 BBB class 객체를 참조하고 있지 않을 수도 있기 떄문이다.
 
-ptrB = ptrA;
+AAA *ptrA = new AAA();
+BBB *ptrB = ptrA;
 // 불가능하다. 마찬가지로 AAA class의 포인터가 BBB class 객체를 참조하고 있지 않을 수도 있기 떄문이다.
+
+AAA *ptrA = new AAA();
+BBB *ptrB = new BBB();
 
 ptrA->foo();
 // A class의 foo함수가 오버라이딩 됨.
@@ -147,12 +150,40 @@ ptrA->foo();
 ptrB->foo();
 // B class의 foo함수가 오버라이딩 됨.
 ```
+
   - 가상 함수 (Virtual Function)
     - 포인터 자료형 기준으로 함수가 오버라이딩되는 특성이 문제를 불러일으킬 수 있기 때문에, 가상함수라는 개념을 제공한다.
     - **포인터 자료형 기준으로 호출 대상 함수를 정하는 것이 아니라, 실제 가리키는 객체를 기준으로 호출 대상 함수를 정하는 방법을 제공한다.**
     - 정리
       - **컴파일러 연산시 발생하는 문제점 : '포인터 자료형 기준 판단'으로 해결**
       - **상속상태에서 함수 호출시 발생하는 문제점 : '가상함수 설정'으로 해결**
+      
+```cpp
+class AAA{
+  virtual void fooA() { cout << "AAA foo function called" << endl;}
+};
+class BBB : public AAA{
+  virtual void fooB() { cout << "BBB foo function called" << endl;}
+  // virtual 선언을 따로 해주지 않아도 된다.
+};
+// AAA가 상위 class, BBB가 하위 class라고 할때! (위와 마찬가지의 경우)
+
+BBB *ptrB = new BBB();
+AAA *ptrA = ptrB;
+// ptrA가 자료형 상으로는 AAA 객체를 가리키지만, 실제 상으로는 BBB 객체를 가리킨다.
+
+ptrA->foo();
+// 그러므로 B class의 foo함수가 가상함수 개념에 따라서 실행됨
+
+ptrB->foo();
+// 그러므로 B class의 foo함수가 가상함수 개념에 따라서 실행됨
+```
+
+## 4. 상속(Inheritance)의 조건, 이유와 핵심정리!
+  - 상속의 조건 : IS-A 관계의 성립 (의미를 포함하는 관계의 성립), HAS-A 관계의 성립 (의미를 지니고 있는 관계 : 종종 상속으로 표현)
+  - 상속의 이유 : 상속을 통해서 일련의 class들 사이의 공통적인 규약을 정의할 수 있다.
+    - 기초 class에서 파생되는 모든 유도 클래스들은 기초 class의 틀을 바라보고 있다.
+    - class 별로 다른 행동들은 
 
   
   
