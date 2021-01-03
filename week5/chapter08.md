@@ -181,14 +181,29 @@ ptrB->foo();
 
   - 순수 가상 함수(Pure Virtual Function)와 추상 클래스(Abstract Function)
     - 순수 가상 함수
-      - 유도 class에서의 함수호출을 위해 정의된, 실제 동작이 목적이 아닌 가상 함수를 의미한다.
+      - 유도 class에서의 함수호출을 위해 정의된 연결고리 같은 느낌의 실제 동작이 목적이 아닌 가상 함수를 의미한다.
       - 함수의 몸체가 정의되지 않은 함수
     - 추상 클래스
-      - 다른 클래스의 표현적 바탕이 될 수 있는, 순수 가상 함수가 하나라도 존재하는 완전하지 못한 class
+      - 유도 클래스들의 표현적 바탕이 될 수 있는, 순수 가상 함수가 하나라도 존재하는 완전하지 못한 class
       - 추상 클래스를 통해서 객체를 생성할 수 없다.
     - 사용의 이점
       - 객체의 생성을 미연에 방지할 수 있다
       - 순수 가상 함수임을 (몸체가 정의되지 않았음을) 명시하는 역할을 해줄 수 있다.
+    - 사용법
+    
+```cpp
+class Employee{
+private:
+  char name[100];
+public:
+  Employee(char *name) { ... }
+  void ShowYourName() const { ... }
+  virtual int GetPay() const = 0;
+  virtual void ShowSalaryInfo() const = 0;
+  // const = 0은 대입의 의미가 아니라, 함수의 몸체가 비어있다는 의미이다.
+};
+// Employee class 로는 객체를 생성할 수 없다.
+```
 
 ## 4. 상속(Inheritance)의 조건, 이유와 핵심정리!
   - 상속의 조건 : IS-A 관계의 성립 (의미를 포함하는 관계의 성립), HAS-A 관계의 성립 (의미를 지니고 있는 관계 : 종종 상속으로 표현)
