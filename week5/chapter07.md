@@ -176,6 +176,7 @@ class B : public A{
 |**private**|은닉|private|
 |**protected**|private|private|
 |**public**|private|public|
+
   - **public 상속**
     - public보다 넓은 범위의 접근을 허용하는 멤버를 public 상속받는 것인데, 그냥 기초 class의 내용을 그대로 상속받는다.
     - 기존 private멤버는 private 속성으로 상속되고, 정보은닉에 의거하여 유도 class내에서 바로 접근은 불가하다.
