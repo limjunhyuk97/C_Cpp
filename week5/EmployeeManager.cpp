@@ -94,7 +94,7 @@ public:
 		return SalesWorker::GetPay() * RiskIncentive(risklevel);
 	}
 
-	// 범위 지정 연산자와 추상함수를 적절히 조합해 쓰면 상속을 잘 이용할 수 있다.
+	// 범위 지정 연산자와 함수를 적절히 조합해 쓰면 상속을 잘 이용할 수 있다.
 	void ShowSalaryInfo() const {
 		ShowYourName();
 		cout << "salary : " << SalesWorker::GetPay() << endl;
