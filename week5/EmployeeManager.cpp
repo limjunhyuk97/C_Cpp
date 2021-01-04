@@ -94,7 +94,7 @@ public:
 		return SalesWorker::GetPay() * RiskIncentive(risklevel);
 	}
 
-	// 일단 SalesWorker class 함수 호출로 설정해봄 : 예상, SalesWorker의 GetPay가 실행되겠지..
+	// 범위 지정 연산자와 추상함수를 적절히 조합해 쓰면 상속을 잘 이용할 수 있다.
 	void ShowSalaryInfo() const {
 		ShowYourName();
 		cout << "salary : " << SalesWorker::GetPay() << endl;
@@ -111,7 +111,7 @@ private:
 public:
 	EmployeeHandler() : empNum(0) {}
 
-	// EmployeeHandler객체에 여전히 PermanentWorker객체 또한 저장가능하다.
+	
 	void AddEmployee(Employee* emp) {
 		empList[empNum++] = emp;
 	}
