@@ -109,7 +109,7 @@ int main(){
 }
 ```
 
-## 3. 가상함수(Virtual Function)
+## 3. 가상함수(Virtual Function) / 가상소멸자(Virtual Destructor)
   - 객체 포인터 할당
     - C++ 컴파일러는 연산수행시에 포인터가 실제로 참고하고 있는 객체를 기준으로 판단하지 않고, 포인터의 자료형으로 연산가능성을 판단한다.
     - 유도 class의 객체 일체에 관해서는 참조는 가능하지만
@@ -156,7 +156,7 @@ ptrB->foo();
     - **포인터 자료형 기준으로 호출 대상 함수를 정하는 것이 아니라, 실제 가리키는 객체를 기준으로 호출 대상 함수를 정하는 방법을 제공한다.**
     - 정리
       - **컴파일러 연산시 발생하는 문제점 : '포인터 자료형 기준 판단'으로 해결**
-      - **상속상태에서 함수 호출시 발생하는 문제점 : '가상함수 설정'으로 해결**
+      - **상속상태에서 함수 호출시 발생하는 문제점 : '가상함수 설정'과 '범위지정연산자'를 통해서 해결**
       
 ```cpp
 class AAA{
@@ -205,12 +205,81 @@ public:
 // Employee class 로는 객체를 생성할 수 없다.
 ```
 
-## 4. 상속(Inheritance)의 조건, 이유와 핵심정리!
-  - 상속의 조건 : IS-A 관계의 성립 (의미를 포함하는 관계의 성립), HAS-A 관계의 성립 (의미를 지니고 있는 관계 : 종종 상속으로 표현)
-  - 상속의 이유 : 상속을 통해서 일련의 class들 사이의 공통적인 규약을 정의할 수 있다.
+  - 가상 소멸자(Virtual Constructor)
+    - vitrual 선언 X 시에 : 포인터의 자료형을 기준으로 그것보다 상위의 소멸자들만 호출된다.
+    - 가상 소멸자 선언을 해야, 계층 구조상 가장 아래에 있는 소멸자부터 가장 상위의 소멸자까지 차례대로 실행이 된다.
+
+```cpp
+class AAA{
+public:
+  virtual ~AAA() ...
+};
+
+class BBB : public AAA{
+public:
+  virtual ~BBB() ...
+};
+
+class CCC : public BBB{
+public:
+  virtual ~CCC() ...
+};
+
+AAA *ptr = new CCC(...);
+delete ptr;
+// virtual 선언을 해주었으므로 CCC 부터 BBB AAA 순으로 소멸자가 호출된다!
+//
+
+``` 
+
+## 4. 객체 참조 변수와 상속관계
+  - **객체 참조변수와 상속관계에서도, 객체 포인터 변수에서의 특징들이 고스란히 유지된다.**
+    - (객체 참조변수가 참조하는 class + a) class 객체 참조 가능.
+    - 참조 자료형 기준으로 객체 참조자 연산이 일어난다.
+    - 참조 자료형 기준으로 일어나는 연산을 실제 참조 객체 기준 연산으로 바꾸려면 virtual 선언을 해주면 된다.
+
+## 5. 상속(Inheritance)의 조건, 이유와 핵심정리!
+  - **상속의 조건 : IS-A 관계의 성립 (의미를 포함하는 관계의 성립), HAS-A 관계의 성립 (의미를 지니고 있는 관계 : 종종 상속으로 표현)**
+  - **상속의 이유 : 상속을 통해서 일련의 class들 사이의 공통적인 규약을 정의할 수 있다.**
     - 기초 class에서 파생되는 모든 유도 클래스의 객체를 기초 class의 객체로 바라볼 수 있게된다.
     - class 별로 다른 행동들은 가상함수 개념과, 함수오버라이딩 개념으로 해결할 수 있다.
 
+## 6. 다형성(Polymorphism)
+  - 같은 모습, 다른 형태
+  - 문장은 같은데 결과는 다른 상황.
+
+```cpp
+class First{
+public:
+  virtual void SimpleFunc() {
+      cout << "Fist class" << endl;
+  }
+};
+
+class Second : public First{
+public:
+  virtual void SimpleFucn() {
+    cout << "Second class" << endl;
+  }
+};
+
+int main(void){
+  
+  First *ptr = new First();
+  ptr->SimpleFunc();
+  // 출력 결과 : "First class"
+  delete ptr;
+  
+  ptr = new Second();
+  ptr->SimpleFunc();
+  // 출력 결과 : "Second class"
+  delete ptr;
+  
+  // 같은 ptr->SimpleFunc() 인데, 결과가 다르다. 이유는 가상함수로 인해서 같은 포인터 변수가 가리키는 객체의 자료형이 달라지기 때문이다!
+  
+  return 0;
+}
+```
   
   
   
