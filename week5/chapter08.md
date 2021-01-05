@@ -237,6 +237,32 @@ delete ptr;
     - (객체 참조변수가 참조하는 class + a) class 객체 참조 가능.
     - 참조 자료형 기준으로 객체 참조자 연산이 일어난다.
     - 참조 자료형 기준으로 일어나는 연산을 실제 참조 객체 기준 연산으로 바꾸려면 virtual 선언을 해주면 된다.
+    
+```cpp
+class AAA {
+public:
+	void foo() { std::cout << "AAA::foo() called" << endl; }
+	virtual void fooo() { std::cout << "AAA::fooo() called" << endl; }
+};
+
+class BBB : public AAA {
+public:
+	void foo() { std::cout << "BBB::foo() called" << endl; }
+	virtual void fooo() { std::cout << "BBB::fooo() called" << endl; }
+};
+
+int main(void) {
+	BBB Bobj;
+	AAA& Aobj = Bobj;
+
+	Aobj.foo();
+  // 참조자의 자료형 기준 연산
+  
+	Aobj.fooo();
+  // 참조자 실제 참조 객체 기준 
+  ...
+}
+```
 
 ## 5. 상속(Inheritance)의 조건, 이유와 핵심정리!
   - **상속의 조건 : IS-A 관계의 성립 (의미를 포함하는 관계의 성립), HAS-A 관계의 성립 (의미를 지니고 있는 관계 : 종종 상속으로 표현)**
