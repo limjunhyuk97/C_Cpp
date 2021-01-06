@@ -42,38 +42,20 @@ namespace CUSTOMER_INFO{
 	}
 
 	double NACustomer::ShowInterestRate() const {
-		return 1+(interest)/(double)100;
+		return 1+(GetInterest())/(double)100;
 	}
 
 	int NACustomer::GetInterest() const {
 		return interest;
 	}
 
-	void NACustomer::ShowAllInfo(int *cnt) const {
-		std::cout << "\n==============================" << std::endl;
-		std::cout << cnt + 1 << ". " << "계좌ID : " << GetId() << std::endl;
-		std::cout << "  고객 성함 : " << GetName() << std::endl;
-		std::cout << "  고객 잔고 : " << GetReserve() << std::endl;
-		std::cout << "고객 이자율 : " << GetInterest() << std::endl;
-		++cnt;
-	}
-
 	double HCACustomer::ShowInterestRate() const {
-		return NACustomer::ShowInterestRate() + (creditrate)/(double)100;
+		return 1 + (GetInterest())/(double)100;
 	}
 
 	int HCACustomer::GetInterest() const {
-		return creditrate + NACustomer::GetInterest();
+		return additionalinterest + NACustomer::GetInterest();
 	}
 
-	void HCACustomer::ShowAllInfo(int* cnt) const {
-		std::cout << "\n==============================" << std::endl;
-		std::cout << cnt + 1 << ". " << "계좌ID : " << GetId() << std::endl;
-		std::cout << "  고객 성함 : " << GetName() << std::endl;
-		std::cout << "  고객 잔고 : " << GetReserve() << std::endl;
-		std::cout << "고객 이자율 : " << GetInterest() << std::endl;
-		++*cnt;
-	}
 }
-
 
