@@ -158,12 +158,15 @@ namespace CONTRACT_MODULE {
 
 	void PrintAllAccount::NewPrintAllAccount(std::vector< std::vector<CUSTOMER_INFO::Customer *> >& arr) const {
 		int cnt = 0;
-		int* ptr = &cnt;
 		for (int i = 0; i < arr.size(); ++i) {
 			if (arr[i].size() == 0) continue;
 			for (int j = 0; j < arr[i].size(); ++j) {
 				CUSTOMER_INFO::Customer* client = arr[i][j];
-				client->ShowAllInfo(ptr);
+				std::cout << "\n==============================" << std::endl;
+				std::cout << ++cnt << ". " << " 계좌ID : " << client->GetId() << std::endl;
+				std::cout << "  고객 성함 : " << client->GetName() << std::endl;
+				std::cout << "  고객 잔고 : " << client->GetReserve() << std::endl;
+				std::cout << "고객 이자율 : " << client->GetInterest() << std::endl;
 			}
 		}
 		if (cnt == 0) cout << "\n개설된 계좌가 없습니다!\n\n";
