@@ -8,7 +8,7 @@ using namespace std;
 
 int main(void) {
 
-	vector < vector<CUSTOMER_INFO::Customer> > person(50);
+	vector < vector<CUSTOMER_INFO::Customer *> > person(50);
 	CONTRACT_MODULE::Branch newBranch;
 
 	while (newBranch.ExitLoop()) {

@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "CUSTOMER.h"
 namespace CUSTOMER_INFO{
 
@@ -20,20 +21,41 @@ namespace CUSTOMER_INFO{
 		reserve += in;
 	}
 
+	void Customer::ReserveInterest() {
+		reserve = (int)(reserve * ShowInterestRate());
+	}
+
 	void Customer::ReserveOut(int out) {
 	reserve -= out;
 	}
 
-	int Customer::IdReturn() const {
+	int Customer::GetId() const {
 		return id;
 	}
 
-	int Customer::ReserveReturn() const {
+	int Customer::GetReserve() const {
 		return reserve;
 	}
 
-	std::string Customer::NameReturn() const {
+	std::string Customer::GetName() const {
 		return name;
 	}
 
+	double NACustomer::ShowInterestRate() const {
+		return 1+(GetInterest())/(double)100;
+	}
+
+	int NACustomer::GetInterest() const {
+		return interest;
+	}
+
+	double HCACustomer::ShowInterestRate() const {
+		return 1 + (GetInterest())/(double)100;
+	}
+
+	int HCACustomer::GetInterest() const {
+		return additionalinterest + NACustomer::GetInterest();
+	}
+
 }
+
