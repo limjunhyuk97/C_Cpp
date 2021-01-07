@@ -1,4 +1,4 @@
-# 가상의 원리와 다중상속
+# 가상의 원리(가상함수, 가상상속)와 다중상속
 
 ## 01. 객체와 멤버함수의 존재
   - 정리
@@ -59,28 +59,55 @@ int main(void){
 |void BBB::Fucn2()|2번지|
 |void BBB::Func3()|3번지|
 
-   
+## 03. 다중상속 (Multi Inheritance)
+  - 동시에 두개의 class를 상속하는 상태이다.
+  - 특수한 경우에만 사용하고, 그외의 경우에는 문제가 발생할 가능성이 농후해서 가급적 사용하지 않는 것이 좋다.
+  - 다중상속의 방법 & **모호성(ambiguous)** 극복 방법
+```cpp
+class AAA{
+public:
+  void Foo() { cout << "Foo() called" << endl; }
+};
 
+class BBB{
+public:
+  void Foo() { cout << "Foo() called" << endl; }
+};
 
+// 다중상속의 방법을 나타낸다.
+class MultiDerived : public AAA, protected BBB{
+public:
+  void complexFoo(){
+   // 다중상속시 멤버 명이 중첩되는 문제를 극복하는 방법까지 나타냈다.
+   AAA::Foo();
+   BBB::Foo();
+  }
+}
+```
 
+## 04. 가상상속 (Virtual Inheritance)
+  - **Base class** <- **Middle1 class**, **Middle2 class**가 동시에 상속 <- 이 둘을 **Last class**가 다중상속 한 경우의 문제 해결방식
+  - 가상상속의 사용 이유
+    - 가상상속을 사용하지 않으면 Last class에 Base class가 두개 존재하게 된다.
+    - Base class가 두개 존재하면 Base class의 함수를 사용할때 모호성 문제 발생. (둘 중 어떤 Base class의 함수를 이용하는 것인지에 대한 문제 발생.)
+    - **virtual 상속을 해준다면, Base class가 Last class에 하나만 상속된 것같은 효과를 만들어준다. / 모호성 문제의 해결**
+    
+```cpp
+class Base{
+...
+};
 
+// virtual 가상상속
+class Middle1 : virtual public Base{
+...
+};
 
+class Middle2 : virtual public Base{
+...
+};
 
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+// Base가 한번 상속된 효과를 얻게됨.
+class Last : public Middle1, public Middle2{
+...
+};
+```
