@@ -45,17 +45,21 @@ int main(void){
     - 오버라이딩은 유도 class에 존재하는 함수만 호출되게끔 V-Table상의 key값과, value값을 변경시켜버린다.
     - 예시
       - AAA class의 virtual 함수 Func1과 Func2, V-Table
+      - BBB class의 재정의된 virtual 함수 Func1과, 새로 정의된 함수 Func3, V-table
+      - 가상함수가 유도 class에서 재정의되는 순간, V-Table 상에서 대체되어버렸다. (오버로딩)
+      
 |Key|Value|
 |:---:|:---:|
 |void AAA::Func1()|1번지|
 |void AAA::Fucn2()|2번지|
-      - BBB class의 재정의된 virtual 함수 Func1과, 새로 정의된 함수 Func3, V-table
+      
 |Key|Value|
 |:---:|:---:|
 |void BBB::Func1()|5번지|
 |void BBB::Fucn2()|2번지|
 |void BBB::Func3()|3번지|
-      - 가상함수가 유도 class에서 재정의되는 순간, V-Table 상에서 대체되어버린다. (오버로딩)
+
+   
 
 
 
