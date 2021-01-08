@@ -1,7 +1,4 @@
-#include <string>
-#include <iostream>
 #include "CUSTOMER.h"
-namespace CUSTOMER_INFO{
 
 	Customer::Customer(int id, std::string name, int reserve)
 		: id(id), name(name), reserve(reserve) {}
@@ -40,22 +37,3 @@ namespace CUSTOMER_INFO{
 	std::string Customer::GetName() const {
 		return name;
 	}
-
-	double NACustomer::ShowInterestRate() const {
-		return 1+(GetInterest())/(double)100;
-	}
-
-	int NACustomer::GetInterest() const {
-		return interest;
-	}
-
-	double HCACustomer::ShowInterestRate() const {
-		return 1 + (GetInterest())/(double)100;
-	}
-
-	int HCACustomer::GetInterest() const {
-		return additionalinterest + NACustomer::GetInterest();
-	}
-
-}
-
