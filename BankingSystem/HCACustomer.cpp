@@ -1,8 +1,9 @@
-#include "NACUSTOMER.h"
-double NACustomer::ShowInterestRate() const {
+#include "HCACUSTOMER.h"
+
+double HCACustomer::ShowInterestRate() const {
 	return 1 + (GetInterest()) / (double)100;
 }
 
-int NACustomer::GetInterest() const {
-	return interest;
+int HCACustomer::GetInterest() const {
+	return additionalinterest + NACustomer::GetInterest();
 }
