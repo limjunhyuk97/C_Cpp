@@ -3,6 +3,8 @@
 #include <string>
 #include "CUSTOMER.h"
 #include "CONTRACT_MODULE.h"
+#include "HCACUSTOMER.h"
+#include "NACUSTOMER.h"
 #define ERRMSG_SYS "\nWrong input number. Try again.\n\n"
 #define ERRMSG_ID "\nWrong input Id. Try again.\n\n"
 #define ERRMSG_TY "\nWrong input type. Try again.\n"
@@ -13,7 +15,7 @@ namespace CONTRACT_MODULE {
 	// namespace ERR_MODULE start
 	namespace ERR_MODULE {
 
-		bool ErrFilterIdUnknown(int id, int hashValue, std::vector < std::vector <CUSTOMER_INFO::Customer *> > arr) {
+		bool ErrFilterIdUnknown(int id, int hashValue, std::vector < std::vector <Customer *> > arr) {
 			if (CONTRACT_MODULE::IdIndexLocatingFunc(id, hashValue, arr) == -1) return false;
 			else return true;
 		}
@@ -54,7 +56,7 @@ namespace CONTRACT_MODULE {
 	}
 	// namespace ERR_MODULE end
 
-	int IdIndexLocatingFunc(int id, int hashedId, std::vector < std::vector <CUSTOMER_INFO::Customer *> >& container) {
+	int IdIndexLocatingFunc(int id, int hashedId, std::vector < std::vector <Customer *> >& container) {
 		int ans = -1;
 		if (container[hashedId].size() == 0) return -1;
 		else {
@@ -74,9 +76,9 @@ namespace CONTRACT_MODULE {
 	}
 
 	
-	void Account::newAccount(std::vector< std::vector<CUSTOMER_INFO::Customer*> >& arr) {
+	void Account::newAccount(std::vector< std::vector<Customer*> >& arr) {
 
-		CUSTOMER_INFO::Customer* client;
+		Customer* client;
 		int select = 0;
 		cout << "\n[계좌종류선택]\n";
 		cout << "1. 보통예금계좌 / 2. 신용신뢰계좌" << endl;
@@ -88,7 +90,7 @@ namespace CONTRACT_MODULE {
 		case 1:
 			cout << "[보통예금계좌 개설]" << endl;
 			basicInput();
-			client = new CUSTOMER_INFO::NACustomer(id, name, money, interest);
+			client = new NACustomer(id, name, money, interest);
 			arr[hashvalue].push_back(client);
 			cout << "***개설을 축하드립니다!!***" << endl;
 			cout << "입금완료 / 잔액 : " << money << ", 이자율 : " << interest << endl << endl;
@@ -98,7 +100,7 @@ namespace CONTRACT_MODULE {
 			basicInput();
 			cout << "신용등급(1toA, 2toB, 3toC) : ";
 			cin >> creditrate;
-			client = new CUSTOMER_INFO::HCACustomer(id, name, money, interest, creditrate);
+			client = new HCACustomer(id, name, money, interest, creditrate);
 			arr[hashvalue].push_back(client);
 			cout << "***개설을 축하드립니다!!***" << endl;
 			cout << "입금완료 / 잔액 : " << money << ", 이자율 : " << interest<<", 신용등급 : "<<creditrate << endl << endl;
@@ -122,7 +124,7 @@ namespace CONTRACT_MODULE {
 		cin >> interest;
 	}
 			
-	void Deposit::newDeposit(std::vector< std::vector<CUSTOMER_INFO::Customer *> >& arr) {
+	void Deposit::newDeposit(std::vector< std::vector<Customer *> >& arr) {
 
 		cout << "\n[계좌입금]\n";
 		cout << "계좌 ID : ";
@@ -134,13 +136,13 @@ namespace CONTRACT_MODULE {
 		}
 		cout << "입금액 : ";
 		money = ERR_MODULE::ErrFilterMoneyDataType(2);
-		CUSTOMER_INFO::Customer * exactLocation = arr[HashingFunc(id)][IdIndexLocatingFunc(id, HashingFunc(id), arr)];
+		Customer * exactLocation = arr[HashingFunc(id)][IdIndexLocatingFunc(id, HashingFunc(id), arr)];
 		exactLocation->ReserveInterest();
 		exactLocation->ReserveIn(money);
 		cout << "입금완료 / 잔액 : " << exactLocation->GetReserve() << endl<<endl;
 	}
 
-	void Withdrawal::newWithdrawal(std::vector< std::vector<CUSTOMER_INFO::Customer *> >& arr) {
+	void Withdrawal::newWithdrawal(std::vector< std::vector<Customer *> >& arr) {
 		cout << "\n[계좌출금]\n";
 		cout << "계좌 ID : ";
 		id = ERR_MODULE::ErrFilterIdDataType();
@@ -151,17 +153,17 @@ namespace CONTRACT_MODULE {
 		}
 		cout << "출금액 : ";
 		money = ERR_MODULE::ErrFilterMoneyDataType(3);
-		CUSTOMER_INFO::Customer* exactLocation = arr[HashingFunc(id)][IdIndexLocatingFunc(id, HashingFunc(id), arr)];
+		Customer* exactLocation = arr[HashingFunc(id)][IdIndexLocatingFunc(id, HashingFunc(id), arr)];
 		exactLocation->ReserveOut(money);
 		cout << "입금완료 / 잔액 : " << exactLocation->GetReserve() << endl<<endl;
 	}
 
-	void PrintAllAccount::NewPrintAllAccount(std::vector< std::vector<CUSTOMER_INFO::Customer *> >& arr) const {
+	void PrintAllAccount::NewPrintAllAccount(std::vector< std::vector<Customer *> >& arr) const {
 		int cnt = 0;
 		for (int i = 0; i < arr.size(); ++i) {
 			if (arr[i].size() == 0) continue;
 			for (int j = 0; j < arr[i].size(); ++j) {
-				CUSTOMER_INFO::Customer* client = arr[i][j];
+				Customer* client = arr[i][j];
 				std::cout << "\n==============================" << std::endl;
 				std::cout << ++cnt << ". " << " 계좌ID : " << client->GetId() << std::endl;
 				std::cout << "  고객 성함 : " << client->GetName() << std::endl;
@@ -173,7 +175,7 @@ namespace CONTRACT_MODULE {
 		else cout << "==============================" << endl << endl;
 	}
 
-	void Branch::ShowBranch(std::vector< std::vector <CUSTOMER_INFO::Customer *> >& arr) {
+	void Branch::ShowBranch(std::vector< std::vector <Customer *> >& arr) {
 		cout << "-----Menu-----" << endl;
 		cout << "1. 계좌 개설" << endl;
 		cout << "2. 입금" << endl;
@@ -185,7 +187,7 @@ namespace CONTRACT_MODULE {
 		SelectBranch(select, arr);
 	}
 
-	void Branch::SelectBranch(int n, std::vector< std::vector <CUSTOMER_INFO::Customer *> >& arr) {
+	void Branch::SelectBranch(int n, std::vector< std::vector <Customer *> >& arr) {
 		switch (n) {
 		case 1:
 			makeAccount.newAccount(arr);
