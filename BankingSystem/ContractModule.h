@@ -1,16 +1,13 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include "CUSTOMER.h"
 #pragma once
+#include "CUSTOMER.h"
 namespace CONTRACT_MODULE {
 
-	int IdIndexLocatingFunc(int id, int hashedId, std::vector < std::vector <CUSTOMER_INFO::Customer*> >& container);
+	int IdIndexLocatingFunc(int id, int hashedId, std::vector < std::vector <Customer*> >& container);
 
 	int HashingFunc(int num);
 
 	namespace ERR_MODULE {
-		bool ErrFilterIdUnknown(int id, int hashValue, std::vector < std::vector <CUSTOMER_INFO::Customer *> > arr);
+		bool ErrFilterIdUnknown(int id, int hashValue, std::vector < std::vector <Customer *> > arr);
 
 		int ErrFilterIdDataType();
 
@@ -28,7 +25,7 @@ namespace CONTRACT_MODULE {
 		int creditrate;
 		std::string name;
 	public:
-		void newAccount(std::vector< std::vector<CUSTOMER_INFO::Customer*> >& arr);
+		void newAccount(std::vector< std::vector<Customer*> >& arr);
 		void basicInput();
 	};
 
@@ -38,7 +35,7 @@ namespace CONTRACT_MODULE {
 		int hashvalue;
 		int money;
 	public:
-		void newDeposit(std::vector< std::vector<CUSTOMER_INFO::Customer *> >& arr);
+		void newDeposit(std::vector< std::vector<Customer *> >& arr);
 	};
 
 	class Withdrawal {
@@ -47,12 +44,12 @@ namespace CONTRACT_MODULE {
 		int hashvalue;
 		int money;
 	public:
-		void newWithdrawal(std::vector< std::vector<CUSTOMER_INFO::Customer *> >& arr);
+		void newWithdrawal(std::vector< std::vector<Customer *> >& arr);
 	};
 
 	class PrintAllAccount {
 	public:
-		void NewPrintAllAccount(std::vector< std::vector<CUSTOMER_INFO::Customer *> >& arr) const;
+		void NewPrintAllAccount(std::vector< std::vector<Customer *> >& arr) const;
 	};
 
 	class Branch {
@@ -64,8 +61,8 @@ namespace CONTRACT_MODULE {
 		PrintAllAccount printIt;
 
 	public:
-		void ShowBranch(std::vector< std::vector <CUSTOMER_INFO::Customer *> >& arr);
-		void SelectBranch(int n, std::vector< std::vector <CUSTOMER_INFO::Customer *> >& arr);
+		void ShowBranch(std::vector< std::vector <Customer *> >& arr);
+		void SelectBranch(int n, std::vector< std::vector <Customer *> >& arr);
 		bool ExitLoop();
 	};
 
