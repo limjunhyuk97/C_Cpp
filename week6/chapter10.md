@@ -79,9 +79,9 @@ int main(void){
     - 2. 연산자의 우선순위와 결합성을 바뀌지 않는다.
     - 3. 매개변수 디폴트값 설정 불가능하다.
   - **operator연산자 생성시 유념할 것!**
-    - 1. **함수위치 고려** 
-    - 2. **반환형 고려, 실제 반환인자 고려**
-    - 3. **전위연산이냐, 후위연산이냐 고려** 
+    - 1. **함수위치 고려(멤버, 전역) + 매개인자 고려(const, const X)** 
+    - 2. **전위연산이냐, 후위연산이냐 고려** 
+    - 3. **반환형 고려, 실제 반환인자 고려** 
     
 
 ## 03. 단항연산자 오버로딩
@@ -139,24 +139,55 @@ class AAA{
 private:
   int x;
 public:
-  AAA(int x) : x(x) {}
-  AAA& operator(){
+  AAA(int x = 0) : x(x) {}
+  
+  // ++전위연산, 멤버함수
+  AAA& operator++(){
     x += 1;
+    return *this;
   }
+  
+  // 후위연산++, 멤버함수
+  const AAA operator++(int){
+    const AAA retobj(*this);
+    x+=1;
+    return retobj;
+  }
+  
+  // --전위연산, 전역함수
+  friend AAA& operator--(AAA &ref);
+  
+  // 후위연산--, 전역함수
+  friend const AAA operator--(AAA &ref, int)
+  
 };  
 
+AAA &operator--(AAA &ref){
+  ref.x -= 1;
+  return ref;
+}
+
+// const는 반환된 임시객체를 const 객체로 만든다. (객체 내부 멤버 변경 불가능)
+// 그러므로 객체의 후위연산을 연속으로 두번 호출할 수 없다! : const 함수가 아니기 때문에..
+const AAA operator--(AAA &ref, int){
+  const AAA retobj(ref);
+  ref.x -= 1;
+  return retobj;
+}
+
+int main(void){
+  
+  AAA obj1(3);
+  AAA obj2;
+  
+  obj2 = obj1--;
+  // obj2에 들어가는 값은 연산 전의 값. obj1에 들어가는 값은 --연산 후의 값. (prefix unary operation 구현)
+  
+  return 0;
+}
 
 ```
     
     
     
-
-
-
-
-
-
-
-
-
 
