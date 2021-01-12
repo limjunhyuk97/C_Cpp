@@ -69,10 +69,12 @@
 
 ### 5.2.1. 반환형과 자료형, 참조자
  - 반환형이 참조형이면 반환값을 무엇으로 받느냐에 따라서 결과가 달라진다!
+ - return 형은 연산 다끝나고, 밖으로 튀어나온(참조자로 인해서 원래 값과 같은 공간을 가리키던, 임시로 존재하던) 요소에게 부여된다!!(422p)
 
 - (자료형)& &ref반환 -> &num받기 O
  - 참조자 return, 반환형이 참조자형
    - **참조자가 참조자를 받으므로**, **ref와 num이 같은 자료공간 가리키게** 된다.
+   - 값 같다. 공간 같다. (num1, num2)
 
 ```cpp
 int& RefRetFuncOne(int &ref){
@@ -95,6 +97,7 @@ int main(void){
  - 참조자 return, 반환형이 참조자형
    - **참조자X가 참조자를 받으므로**, **ref와 num가 다른 자료공간 가리키게** 된다.
    - **ref가 가리키는 자료공간 속 값을 num이 가져가게** 된다.
+   - 값 같다. 공간 다르다. (num1, num2)
    
 ```cpp
 int& RefRetFuncTwo(int &ref)
@@ -115,6 +118,7 @@ int main(void){
  - (자료형) &ref -> num받기 O
  - 참조자 return, 반환형이 기본자료형
    - **참조자 값을 토대로 참조자X를 리턴하고, 그것을 참조자X가 받으므로 **, **ref와 num가 다른 자료공간 가리키게** 된다.
+   - 값 같다. 공간 다르다 (num1, num2)
  
  ```cpp
  int RefRetFuncThree(int &ref)
@@ -132,6 +136,7 @@ int main(void){
  - (자료형) &ref -> &num받기 X
  - 참조자 return, 반환형이 기본자료형
    - **상수 값 같은 반환형**이 **참조자 안에 안들어감.**
+   - const 참조자 선언해준다면, 값 같다. 공간 다르다. (num1, num2)
    
 ```cpp
 int RefRetFuncFour(int &ref){
@@ -143,11 +148,17 @@ int main(void){
   int num1 = 1;
   int &num2 = RefRetFuncFour(num1);
   // &num2 참조자에 상수 넣는 것과 다를게 없으므로 안됨.
+  // '비const 참조에 대한 초기값은 lvalue여야 한다!' 오류발생 -> const참조자로 선언해주는게 유일한 해결책
+  
+  const int &num2 = RefRetFuncFour(num1);
+  // 오류발생하지 않음.
 ```
 
  - (자료형)& (기본형)반환 -> X
    - 기본자료형 return, 반환형이 참조자형
-   - 곧 사라질 지역변수 공간의 참조자를 반환하는 것이므로 불가능
+   - 지역변수의 값이 보존되어, 일시적으로 임시의 공간에 return된 값을 num2가 참조하게 되지만, 그 값은 곧 소멸되는 찌꺼기 값이다.
+   - return된 임시객체를 참조자 참조하여 보존하는 것과는 다른 상황이다! 이건 객체가 아니라 상수값이다.
+   - NO!
    
 ```cpp
   int& RefRetFuncFive(int ref){
