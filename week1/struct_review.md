@@ -7,7 +7,7 @@
 	
 2. struct 정의 방식 (+2)
 
-	- 방식 1 : typedef struct ... name	// typedef 사용방식
+	- 방식 1 : typedef struct ... name	// typedef 사용방식 - 별칭 부여 방식
 	
 		typedef struct{
 			int ...
@@ -20,6 +20,8 @@
 			int ...
 			char ...	
 		};
+	
+	- typedef는 자료형에 새로운 별칭을 부여할 때 이용하는 방식이다!
 		
 		
 3. struct 선언 방식 (+2)
