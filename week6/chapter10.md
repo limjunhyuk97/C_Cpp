@@ -1,5 +1,14 @@
 # 연산자 오버로딩
 
+
+### 01. 연산자 오버로딩
+### 02. 연산자 오버로딩 사용법
+### 03. 단항연산자 오버로딩
+### 04. 연산자 오버로딩과 교환법칙 (전역에서의 선언)
+### 05. cout, cin, endl의 정체와 ostream
+### 06. ostream과 <<, \>>를 이용한 객체 출력
+
+
 ## 01. 연산자 오버로딩
   - operator('연산자') 함수.
     - **('operator')와 (연산자)를 묶어서 함수의 이름으로 정하면, 연산자만으로의 함수호출을 허용한다.**
@@ -249,5 +258,69 @@ Point operator*(int times, Point &ref){
 
 ```
     
+## 05. cout, cin, endl의 정체와 ostream
+
+  - 먼저, 그 구동원리를 보여주는 코드를 보자면..
+  
+```cpp
+#include <iostream>
+using mystd{
+  using namespace std;
+  
+  class ostream{
+  public:
+    ostream & operator<<(char *str){
+      printf("%s", str);
+      return *this;
+    }
+    ostream & operator<<(char str){
+      printf("%c", str);
+      return *this;
+    }
+    ostream & operator<<(int num){
+      printf("%d", num);
+      return *this;
+    }  
+    ostream & operator<<(double e){
+      printf("%g", e);
+      return *this;
+    }
     
+    // 함수 포인터 이용
+    // endl 함수를 인자로 받아서, endl(*this)를 계산한 return 값인 this 객체의 참조자 반환을, 반환하는 함수..!
+    ostream & operator<<(ostream& (*fp)(ostream & ostm)){
+      return fp(*this);
+    }
+  
+  };
+  
+  ostream & endl(ostream &ostm){
+    ostm<<"\n";
+    fflush(stdout);
+    return ostm;
+  }
+  
+  ostream cout;
+
+};
+
+int main(void){
+
+  using mystd::cout;
+  using mystd::endl;
+
+  cout<<3.14<<endl<<32<<endl<<c<<endl;
+  
+  return 0;
+
+}
+```   
+  - std namespace 안에 istream, ostream class가 존재하고, cin은 istream의 객체, cout은 ostream의 객체이다.
+  - \<<은 ostream의 객체인 cout의 operator키워드와 같이 쓰이는 연산자이다.
+  - \>>은 istream의 객체인 cin의 operator키워드와 같이 쓰이는 연산자이다.
+  - endl은 복잡한 함수였다.. : endl(cout) 또한 실제로 실행됨.
+
+## 06. ostream과 <<, \>>를 이용한 객체 출력
+
+
 
