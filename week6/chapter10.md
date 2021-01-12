@@ -1,7 +1,7 @@
 # 연산자 오버로딩
 
 
-### 01. 연산자 오버로딩
+### 01. 연산자 오버로딩 (#01.-연산자-오버로딩)
 ### 02. 연산자 오버로딩 사용법
 ### 03. 단항연산자 오버로딩
 ### 04. 연산자 오버로딩과 교환법칙 (전역에서의 선언)
@@ -321,6 +321,37 @@ int main(void){
   - endl은 복잡한 함수였다.. : endl(cout) 또한 실제로 실행됨.
 
 ## 06. ostream과 <<, \>>를 이용한 객체 출력
+  - 마찬가지로 코드를 먼저 보자면..
+  
+```cpp
+#include <iostream>
+using namespace std;
 
+class Point {
+private:
+	int xpos;
+	int ypos;
+public:
+	Point(int x = 0, int y = 0) : xpos(x), ypos(y) {}
+	void ShowAllInfo() const {
+		cout << "[ xpos : " << xpos << ", ypos : " << ypos << " ]" << endl;
+	}
+	friend ostream& operator<<(ostream& ostm, Point& ref);
+	friend istream& operator>>(istream& istm, Point& ref);
+};
 
+// ostream 객체(cout) 참조자 반환, ostream 객체(cout) 참조자와 Point 객체 참조자 매개인자로 받음.
+ostream& operator<<(ostream& ostm, Point& ref) {
+	ostm << "[ xpos : " << ref.xpos << ", ypos : " << ref.ypos << " ]" << endl;
+	return ostm;
+}
+
+// istream 객체(cin) 참조자 반환, istream 객체(cin) 참조자와 Point 객체 참조자 매개인자로 받음.
+istream& operator>>(istream& istm, Point& ref) {
+	istm >> ref.xpos >> ref.ypos;
+	return istm;
+}
+```
+  - 얼마 전 봉착 했던 백준 2751 문제에서의 궁금증이 해소됬다! <https://github.com/limjunhyuk97/BOJ/blob/main/SILVER/2751/2751.cpp>
+  - 문제는 endl이라는 '함수'가 operator키워드와 꽤 복잡하게 엮여있어서 실행횟수가 늘어나면 함수 오버헤딩이 발생해서 시간을 많이 잡아먹는 것이었다!
 
