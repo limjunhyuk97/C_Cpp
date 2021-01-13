@@ -60,7 +60,43 @@ public:
   - 유도 클래스의 디폴트 아닌 대입연산자에서 기초 클래스의 대입연산자를 호출하지 않은 경우, 기초 클래스 멤버의 대입이 안일어난다.
     - **유도 클래스의 대입연산자를 사용자가 정의해야하는 경우, 기초 클래스의 대입연산자 또한 같이 호출해주어야 한다!*
 ```cpp
+class AAA {
+private:
+	int x;
+	int y;
+public:
+	AAA(int x = 0, int y = 0) :x(x), y(y) {}
+	virtual void foo() const {
+		cout << "x : " << x << ", y: " << y << endl;
+	}
+	AAA& operator=(const AAA& ref) {
+		x = ref.x;
+		y = ref.y;
+		return *this;
+	}
+};
 
+class BBB : public AAA {
+private:
+	int z;
+public:
+	BBB(int x = 0, int y = 0, int z = 0) :AAA(x, y), z(z) {}
+	void foo() const {
+		AAA::foo();
+		cout << "z : " << z << endl;
+	}
+  
+  // 따로 대입연산자를 정의해줘야 하는 경우
+  // 1. 상속상 은닉된 AAA의 멤버변수들에서 복사 일어나도록 AAA에서의 operator=() 함수 호출 후에
+  // 2. BBB에서의 멤버변수들의 복사 일어나도록 BBB에서의 복사를 따로 정의
+	BBB& operator=(const BBB& ref) {
+		AAA::operator=(ref);
+		z = ref.z;
+    
+    // 반환은 *this. 반환형은 BBB참조자. : 연속적인 대입이 일어날 수 있음.
+		return *this;
+	}
+};
 ```
   
   
