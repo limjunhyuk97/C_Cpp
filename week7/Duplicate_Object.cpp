@@ -31,7 +31,6 @@ public:
 		if (ref.pistol == NULL)
 			pistol = NULL;
 		else pistol = new Gun(*(ref.pistol));
-		// TNlqkf 복잡하구나..
 		// 1. ref.pistol : class Police 바탕의 ref객체의 , 멤버변수인 Gun 바탕의 pistol 객체 포인터
 		// 2. *(ref.pistol) : class Police 바탕의 ref객체의 , 멤버변수인 Gun 바탕의 pistol 객체 포인터가 가리키는 Gun 객체
 		// 3. new Gun(*(ref.pistol)) : Gun( Gun 객체 )는 복사생성자 호출이다. 결국, ref객체 안의 Gun 객체의 포인터를 new를 통해서 pistol 객체로 할당함.
@@ -75,3 +74,9 @@ public:
 	}
 
 };
+
+
+/*
+멤버변수가 객체 포인터인 상황에서, 복사생성자, 대입연산자 연산에서 객체 포인터에 새로운 객체를 복사해넣는 방법!
+: 복사생성자의 원리를 이용하는 것이었다.
+*/
