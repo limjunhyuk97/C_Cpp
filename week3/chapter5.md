@@ -20,6 +20,7 @@ soSimple sim2(sim2);
  - **name1 = name2** 라고 정의했을 때는, **묵시적 변환**이 일어난다. / 이는 곧 대입연산자의 연산이다!
  - **묵시적변환**에서 **복사 생성자의 호출을 배제**하려면 **explicit**을 사용하면 된다.
 ```cpp
+// 예시 1--------------------------------------------------
 SoSimple {
   explicit SoSimple(SoSimple &copy)
      : num1(copy.num1) , num2(copy.num2) {} 
@@ -43,6 +44,64 @@ public:
 A a = 2;
 // 묵시적 변환이 일어나서 a(2)라고 전달한 꼴이 되버린다.
 // 제한하려면, explicit A(int n) : n(n) {} 으로 바꿔주면 된다.
+
+// 예시 2--------------------------------------------------
+#include <iostream>
+using namespace std;
+
+class AAA {
+private:
+	int n;
+
+public:
+	// 생성자
+	AAA(int num = 0) : n(num) {
+		cout << "생성자 호출 됬으~" << endl;
+	}
+
+	// 복사 생성자
+	explicit AAA(const AAA& ref) {
+		n = ref.n;
+		cout << "복사생성자 호출 됬으~" << endl;
+	}
+
+	// 대입 연산자
+	AAA& operator=(const AAA& ref) {
+		n = ref.n;
+		cout << "대입연산자 호출 됬으~" << endl;
+		return *this;
+	}
+
+};
+
+class BBB{
+private:
+	AAA Aobj;
+public:
+	BBB(const AAA& ref) : Aobj(ref) {}
+};
+
+class CCC {
+private:
+	AAA Cobj;
+public:
+	CCC(const AAA& ref) { Cobj = ref; }
+};
+
+int main(void) {
+
+	AAA Ao(12);
+	cout << endl << endl;
+	AAA Ao2(Ao);
+	cout << endl << endl;
+	AAA Ao3 = Ao;
+ // 여기서는 대입 연산이 일어나고 있는 것이 아니라, 복사생성자의 연산이 일어나고 있는 것. (선언과 동시에 할당)
+ // 만약 AAA 복사생성자 연산에 explicit 선언을 해버렸다면 이 연산은 일어날 수 없음.
+ AAA A4; A4 = A3;
+ // 여기서는 대입 연산이 일어나고 있는 것. (선언 후 대입)
+ cout << endl << endl;
+	return 0;
+}
 ```
 ## 4.0 얕은 복사와 깊은 복사
  - **얕은 복사**는 복사된 객체가 힙영역의 메모리 공간을 참조할 때, 동일한 메모리 공간을 공유하게 된다.
