@@ -54,18 +54,6 @@ for(const auto& it : arr){
 }
 
 ```
-
-## auto 응용
-  - STL <algorithm> 지원, sort함수와 auto.
-
-```cpp
-
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
-
-```
     
     
     
