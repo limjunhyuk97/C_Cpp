@@ -38,7 +38,7 @@ public:
 
 int main() {
   
-  // lambda expression
+	// lambda expression
 	auto lambdaPlus3 = [localVar = 3](int x, int y){
 		return localVar + x;
 	};
@@ -61,5 +61,7 @@ int main() {
 
 	cout << plus3(10) << endl;
 	cout << lambdaPlus3(10, 3) << endl;
+	
+	return 0;
 }
 ```
