@@ -17,7 +17,7 @@
   - function object를 이용하기 위해 class를 선언하는 번거로움을 줄여준다.
   - function pointer과 다르게 인라인화가 가능하다.
   
-## lambda expression
+## [lambda expression](https://docs.microsoft.com/ko-kr/cpp/cpp/lambda-expressions-in-cpp?view=msvc-160)
   - constructs a closure: an unnamed function object capable of capturing variables in scope.
     - lambda expression은 closure를 형성한다.
     - 또한, lambda expression은 고유 객체이다.
