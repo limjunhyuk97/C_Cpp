@@ -8,7 +8,7 @@
     - (JS에서 많이 사용되는 방법..!)
     
 ## cpp에서의 functional programming
-  - function object 생성하기
+  - function object 생성하기 / 함수 오브젝트 / functor(펑터)
     - class내 멤버함수의 operator overloading을 통해서 일반적인 함수처럼 구동가능한 object를 만든다.
     - 이렇게 만들어진 객체는, cpp에서도 함수를 variable처럼 다루는 효과를 낼 수 있게 도와준다.
   - lambda expression 이용하기
