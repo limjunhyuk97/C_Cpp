@@ -6,7 +6,7 @@
   - **클래스 템플릿 : 템플릿 클래스 - 생성된 클래스**
 
 ## 2. 함수 템플릿
-  - **기능은 같지만, 다른 자료형에 대해서 해당 자료형에서의 연산기능을 수행하는 함수를 구현할 수 있다.*
+  - **기능은 같지만, 다른 자료형에 대해서 해당 자료형에서의 연산기능을 수행하는 함수를 구현할 수 있다.**
   - 컴파일 과정에서 한번 만들어진 함수 템플릿은 계속 이용된다.
     - 그렇게 만들어진 함수를 **템플릿 함수**라고 한다.
   - template 정의는 함수마다 해줘야한다.
@@ -161,15 +161,96 @@ vector<vector<int>> arr(4, vertor<int>(3));
   - 확인해본 결과, **확정되지 않은 자료형**을 바탕으로는 **일반 함수와 friend 선언 함수 선언 X**
 
 ```cpp
-template <typename>
+
+template <class T>
+class Point {
+private:
+	T xpos, ypos;
+public:
+	Point(T x1, T y1) : xpos(x1), ypos(y1) {}
+	void ShowPosition() const {
+		cout << " [ " << xpos << " , " << ypos << " ] " << "\n";
+	}
+	friend Point<int> operator+(const Point<int>& pt1, const Point<int>& pt2);
+	friend ostream& operator<<(ostream& ostm, const Point<int>& ref);
+};
+
+// 외부에 존재하는 일반함수를 friend 선언으로 끌고 들어오는 것이기에, 확정된 템플릿 클래스 자료형을 사용해야 한다!
+Point<int> operator+(const Point<int>& pt1, const Point<int>& pt2) {
+	return Point<int>(pt1.xpos + pt2.xpos, pt1.ypos + pt2.ypos);
+}
+
+ostream& operator<<(ostream& ostm, const Point<int>& ref) {
+	cout << " [ " << ref.xpos << " , " << ref.ypos <<  " ] " << "\n";
+	return ostm;
+}
 
 ```
 
 ## 5.4 클래스 템플릿의 특수화
   - 함수 템플릿의 특수화와 비슷하다.
   - 특수화가 진행되면 컴파일러가 미리 템플릿 클래스를 생성해 놓는다.
+  - **특수화 과정에서, 새로운 멤버변수와 멤버함수의 추가가 가능**하다.
   - **클래스 템플릿의 부분 특수화**도 가능하다.
     - typename T1, typename T2처럼 여러개의 형틀이 존재할 때 부분적으로 특수화 시키는 것이다.
+    - 전체 특수화로의 호출이, 부분 특수화로의 호출보다 우선시된다.
+    
+```cpp
+
+#include <iostream>
+using namespace std;
+
+template <typename T1, typename T2>
+class MySimple {
+public:
+	void WhoAreYou() {
+		cout << "size of T1 : " << sizeof(T1) << endl;
+		cout << "size of T2 : " << sizeof(T2) << endl;
+		cout << "<typename T1, typename T2>" << endl;
+	}
+};
+
+template<>
+class MySimple<int, double> {
+public:
+	void WhoAreYou() {
+		cout << "size of int : " << sizeof(int) << endl;
+		cout << "size of double : " << sizeof(double) << endl;
+		cout << "<int, double>" << endl;
+	}
+};
+
+template<typename T1>
+class MySimple<T1, double> {
+public:
+	void WhoAreYou() {
+		cout << "size of T1 : " << sizeof(T1) << endl;
+		cout << "size of double : " << sizeof(double) << endl;
+		cout << "<T1, double>" << endl;
+	}
+};
+
+int main(void) {
+
+  // template <typename T1, typename T2>의 경우 호출
+	MySimple<char, double> m1;
+  
+  // template<typename T1>의 경우 호출
+	MySimple<int, long> m2;
+  
+  // template<>의 경우 호출
+  // 전체 특수화가 부분특수화보다 우선시됨을 확인 가능.
+	MySimple<int, double> m3;
+
+	m1.WhoAreYou();
+	m2.WhoAreYou();
+	m3.WhoAreYou();
+
+	return 0;
+
+}
+
+```
 
 
 
