@@ -83,6 +83,9 @@ int main(void){
   Point<int> pt1(2, 3);
   Point<char> pt2('A', 'B');
   
+  // 마치, STL의 vector 컨테이너의 초기화 시 선언방법과 유사하다!!
+  vector<int> arr(5);
+  
   return 0;
 }
  ```
