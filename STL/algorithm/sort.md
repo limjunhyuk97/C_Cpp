@@ -13,6 +13,7 @@
     - **invalid comparator 발생 문제**    
       - **strict weak ordering relation**을 만족시켜야 해결할 수 있다.
         - 비교불가능성이 동등성을 의미하는 경우
+	- 즉, 동등하지 않은 경우를 비교가능하게 구현해야 한다..
 
 ```cpp
 #include <iostream>
