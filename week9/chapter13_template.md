@@ -41,6 +41,9 @@ Add(3, 4.2);
 
 ## 3. 함수 템플릿의 특수화 (Specialization)
   - "어떤 템플릿에서 내가 임의로 정한 이런 자료형을 인자로 받을 때에는, 다음의 함수를 우선 호출해주세요!" 하는 의미를 지닌다.
+  - 자료형 정보를 함수명 옆에 명시할 수도, 명시하지 않을 수도 있다.
+    - 함수명 옆 명시 : char\* Max<char\*>(char\* a, char \*b);
+    - 함수명 옆 명시 안함 : char\* Max(char\*a, char *b);
   
 ```cpp
 template <typename T>
@@ -49,8 +52,9 @@ T compare(T var1, T var2){
 }
 
 // const char *형을 받을 때에는 다음의 함수를 통해서 함수연산을 진행해 달라!
+// 자료형 정보를 함수명 옆 < > 안에, 함수명<>식으로 명시한 모습
 template<>
-const char * compare(const char* var1, const char* var2){
+const char * compare<const char *>(const char* var1, const char* var2){
   return strlen(var1) > strlen(var2) ? strlen(var1) : strlen(var2);
 }
 
@@ -232,10 +236,10 @@ public:
 
 int main(void) {
 
-  // template <typename T1, typename T2>의 경우 호출
+  // template <typename T1>의 경우 호출
 	MySimple<char, double> m1;
   
-  // template<typename T1>의 경우 호출
+  // template<typename T1, typename T2>의 경우 호출
 	MySimple<int, long> m2;
   
   // template<>의 경우 호출
@@ -252,7 +256,7 @@ int main(void) {
 
 ```
 
-
+## 5.5 
 
 
 
