@@ -305,6 +305,65 @@ i7arr = arr;
     - 변수에 들어간 값에 따라서 다른 자료형의 템플릿 클래스가 생성되기 때문에, 불필요한 연산(예. 대입연산)을 막을 수 있다.
     - 상수처럼 템플릿 안에서 쓰이기 때문에, 배열의 길이 초기화 시에 유용하다.
 
+## 5.6 static 변수와 템플릿
+  - 함수내의 static 변수와 템플릿
+
+```cpp
+// 함수 템플릿 -> 생성된 템플릿 함수 -> 템플릿 함수 별로 static 변수가 초기화되어 존재하게 된다.
+
+template <typename T>
+void Foo(void){
+  static T num = 0;
+  num += 1;
+  cout << num << " ";
+}
+
+// 모두 다른 static 변수를 갖게 된다.
+Foo<int>();
+Foo<double>();
+Foo<long>();
+
+```
+
+  - class내의 static 멤버변수와 템플릿
+  
+```cpp
+// 클래스 템플릿 -> 생성된 템플릿 클래스 -> 템플릿 클래스 별로 static 멤버변수가 초기화 되어 존재하게 된다.
+
+template <typename T>
+class Foo{
+private:
+  static T num;
+public:
+  ...
+};
+
+// template으로써 typename T라는 매개인자 명을 이용하겠다. : 컴파일러에게 템플릿 이용을 알림
+// T의 익명자료형을 이용하는 Foo라는 클래스 템플릿 안의, T 자료형의 static인자를 0으로 초기화 하겠다. 
+template <typename T>
+T Foo<T>::num = 0;
+
+// obj1, obj2를 제외한 객체들은 모두 다른 static 멤버 변수를 갖게 된다.
+// obj1과 obj2 객체는 같은 템플리스 클래스에서 생성된 객체 이므로 static 멤버변수를 공유한다.
+Foo<int> obj1, obj2;
+Foo<double> obj2;
+Foo<long> obj3;
+
+```
+  
+  - 템플릿 특수화
+    - template <typename T> 는 일부, 또는 전체 자료형이 정의되지 않았음을 컴파일러에게 알리는 것이다.
+    - template<> 은 정의 부분에 T라는 익명 자료형이 존재하지 않을 때, 템플릿을 이용하여 찍어낸 것임을 컴파일러에게 알리는 것이다.
+    - 템플릿 특수화는 템플릿이 이용되는 어디서든, 특수하게 지정할 필요가 생기면 사용할 수 있다.
+      - static 멤버변수의 특수화도 가능하다.
+      
+```cpp
+
+// int형의 템플릿 클래스에서의 static 멤버변수를 초기화하는 방법이다.
+template<>
+int Foo<int>::num = 5;
+
+```
 
  
 
