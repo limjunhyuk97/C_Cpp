@@ -256,11 +256,61 @@ int main(void) {
 
 ```
 
-## 5.5 
+## 5.5 클래스 템플릿의 특수화 - 템플릿 매개변수의 상수화
+  - **템플릿 매개변수**와 **템플릿 인자**
+    - 템플릿 매개변수 : 템플릿의 정해지지 않은 자료형을 표현 (typename T1, T2 에서의 T1, T2)
+      - 템플릿 매개변수의 선언에 변수의 선언이 올 수 있다!
+      - 자료형 표현의 매개변수이든, 상수 전달을 위한 매개변수이든, 디폴트 값을 선언할 수 있다!
+    - 템플릿 인자 : 템플릿에 자료형 정보를 전달함.
+      - 템플릿 매개변수의 선언에 온 변수의 선언에 인자로 값을 전달하면, 템플릿 내에서 상수처럼 쓰일 수 있다.
 
+```cpp
 
+// template 매개변수의 선언에 변수의 선언이 들어왔다.
+// template 매개변수의 선언에 디폴트 값이 들어갈 수 있음을 보인다.
+template <typename T = int, int len = 7>
+class SimpleClass{
+private:
+  
+  // 바로 배열길이를 초기화 시킬 수 있다.
+  T arr[len];
+  
+public:
 
+  // (tip) 멤버함수의 const 선언은 외부에서건, 내부에서건 접근을 통한 멤버변수의 값 변경을 허용하지 않는다.
+  // 그렇기에 T& 선언과, const 함수 선언은 서로 충돌할 수 있다.
+  T& oeprator[](itn idx){ return arr[idx]; }
 
+  SimpleArray<T, len>& opertor=(const SimpleArray<T, len>& ref){
+    for(int i=0; i<len; ++i)
+      arr[i] = ref.arr[i];
+    return *this;
+  }
+  
+};
+
+// 템플릿 클래스 SimpleClass<>는 디폴트 값으로 만들어진 클래스이다.
+SimpleClass<> arr;
+
+// i8arr와 i5arr는 서로 다른 자료형으로 만들어진 템플릿 클래스 변수이다.
+SimpleClass<int, 8> i8arr;
+SimpleClass<int, 5> i5arr;
+
+// arr와 i7arr는 같은 템플릿 클래스에서 생성된 변수이다. 그러므로, 대입연산 가능.
+SimpleClass<int, 7> i7arr;
+i7arr = arr;
+```
+
+  - 템플릿 매개변수로 변수의 선언을 사용할 시에 이점
+    - 변수에 들어간 값에 따라서 다른 자료형의 템플릿 클래스가 생성되기 때문에, 불필요한 연산(예. 대입연산)을 막을 수 있다.
+    - 상수처럼 템플릿 안에서 쓰이기 때문에, 배열의 길이 초기화 시에 유용하다.
 
 
  
+
+
+
+
+
+
+
