@@ -199,10 +199,61 @@ int main(void) {
   - throw가 여러개인 경우, 이에 부합하도록 서로다른 자료형에 대한 catch(){ } 블록 또한 여러개 생성할 수 있다.  
   
 ```cpp
+
 #include <iostream>
+#include <cstring>
+#include <cmath>
 using namespace std;
 
+int StoI(char* str) throw(int , char) {
+	int len = strlen(str);
+	int num = 0;
 
+	for (int i = 0; i < len; ++i) {
+		if (len != 0 && str[0] == '0')
+			throw 0;
+		if (str[i] < '0' || str[i] > '9')
+			throw str[i];
+		num += ((str[i] - '0') * (int)pow((double)10, len - (i + 1)));
+	}
+	return num;
+}
+
+int main(void) {
+
+	char str1[100];
+	char str2[100];
+
+	while (1) {
+
+		cout << "두개의 숫자 입력 : ";
+		cin >> str1 >> str2;
+
+		try {
+			cout << str1 << " + " << str2 << " = " << StoI(str1) + StoI(str2) << endl;
+			break;
+		}
+		// char형을 catch 하는 블럭
+		catch (char ch) {
+			cout << ch << "는 숫자가 아닙니다." << endl;
+			cout << "재입력을 진행합니다." << endl;
+		}
+		// int형을 catch 하는 블럭
+		catch (int err) {
+			if (err == 0)
+				cout << "0으로 시작하는 수는 입력 불가함." << endl;
+			else
+				cout << "비정상적인 입력" << endl;
+			cout << "재입력을 진행합니다." << endl;
+		}
+		
+
+	}
+
+	cout << "Terminating Program" << endl;
+	return 0;
+
+}
 ```
 
 ## 3.4 throw 예외의 명시   
@@ -213,11 +264,3 @@ using namespace std;
     - void Foo() throw(int, char) { ... }  : int 형과, char 형의 오류가 throw될 수 있다. 이외의 오류들은 발생해서는 안된다.
     - void Foo() throw() { ... }           : 아무런 오류도 발생하지 않을 것이다. 어떠한 오류도 발생해서는 안된다.
   
-  
-  
-  
-  
-  
-  
-
-
