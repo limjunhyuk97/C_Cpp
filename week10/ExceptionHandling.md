@@ -154,7 +154,37 @@ int main(void){
     
 ```cpp
 
+#include <iostream>
+using namespace std;
 
+void Foo3(void) {
+	cout << "Foo3() called" << endl;
+	throw - 1;
+}
+
+void Foo2(void) {
+	cout << "Foo2() called" << endl;
+	Foo3();
+}
+
+void Foo1(void) {
+	cout << "Foo1() called" << endl;
+	Foo2();
+}
+
+int main(void) {
+  
+  // 호출 순서 : Foo1 -> Foo2 -> Foo3
+  // 예외 전달 수서 : Foo3 -> Foo2 -> Foo1
+	try {
+		Foo1();
+	}
+	catch (int num) {
+		cout << "exceptional code : " << num << endl;
+	}
+
+	return 0;
+}
 
 ```
 
