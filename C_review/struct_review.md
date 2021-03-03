@@ -5,6 +5,18 @@
   - 연관된 데이터의 묶음. (여러 데이터를 묶음으로 나타낸 것.)
 
 ## 2. struct 정의 (+2)
+
+```c
+
+  typedef struct 구조체이름{
+    ...
+  }구조체 별칭;
+  
+  struct 구조체이름{
+    ...
+  };
+
+```
   
   - **방식 1 : typedef struct ... name**
     - typedef 사용방식 
