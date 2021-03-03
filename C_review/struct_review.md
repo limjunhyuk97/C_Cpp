@@ -8,35 +8,46 @@
   
   - **방식 1 : typedef struct ... name**
     - typedef 사용방식 
-    - 별칭 부여 방식
-    - 나중에 구조체 사용 시에 struct 명시가 따로 필요없음. (struct 명시 이용할 수 있긴 하다.)
+    - **별칭 부여 방식**
+    - 나중에 구조체 사용 시에 **struct 명시가 따로 필요없음.** (struct 명시 이용할 수 있긴 하다.)
     - 구조체 정의 안에서 해당 구조체를 다시 사용할 때에는 struct 명시가 필요함.
 
 ```c
-
-  typedef struct Name{
+  
+  // case 1. tagname, nickname
+  typedef struct _Name(태그){
     int ...;
     char ...;
     struct Name ...;
-  } name;
+  } name(별칭);
   
   name name1;
   struct Name name1;
   // 두가지의 경우 모두 가능하다.
   
+  
+  // case 2. nickname
+  typedef struct{
+    int ...;
+    char ...;
+    name ...;
+  } name(별칭);
+  
+  name name1;
+  
 ```
 
   - **방식 2 : struct name**
-    - 태그 사용방식
-    - 나중에 구조체 사용 시에 struct 명시가 따로 필요함.
+    - **태그 사용방식**
+    - 나중에 구조체 사용 시에 **struct 명시가 따로 필요함.**
     - 구조체 정의 안에서 해당 구조체를 다시 사용할 때에는 struct 명시가 필요함.
 
 ```c
 
-  struct TAGNAME{
+  struct name(태그){
     int ...;
     char ...;
-    struct Name ...;
+    struct name ...;
   };
   
   struct name name1;
