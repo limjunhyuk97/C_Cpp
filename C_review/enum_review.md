@@ -4,11 +4,15 @@
   - 표준 정수형 기반의, 사용자 정의 type
     - 정수형을 기반으로 특정 상수명을 정수의 값과 엮어버린다.
 
-## 1. 열거형 타입의 정의
+## 1. 열거형 타입의 정의(+2)
 
-  - **enum typeName {identifier list}; **
+  - 열거형 타입의 정의는 다양한 위치에서 가능하다. (struct 안에서도, main에서도, 전역에서도, ,,,)
 
+### 1. **enum typeName {identifier list};**
+  - **typedef 사용하지 않는 방식**
+ 
 ```c
+// 전역에서 enum 선언
 enum typeName {identifier list};
 
 enum month {Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec}
@@ -21,10 +25,53 @@ enum color {
   Green, Jade = 2,
   White
 }
+
+// struct 내에서 enum 정의
+typedef struct Person{
+  enum sex{ female, male } gender;
+  char name[20];
+  int age;
+}Person;
+
+// 함수 내에서의 enum 정의
+int main(void){
+   enum flag {up, down};
+}
 ```
 
-## 2. 열거형 타입 변수의 선언
-  - 열거형 타입은 정의만 한다고 사용할 수 있는 것이 아니다.
+### 2. typedef enum typeName{identified list} aliasName;**
+  - **typedef 사용하는 방식**
+
+```c
+typedef enum color{RED, GREEN, BLUE} Color;
+```
+
+## 2. 열거형 타입 변수의 선언(+2)
+
+  - **typedef 사용하지 않는 방식**
+    - **enum typeName {identifier list} variableName;**  
+    - "struct 구조체이름 구조체변수;" 같은 느낌
+
+```c
+typedef struct Person{
+  enum sex{ female, male } gender;
+  char name[20];
+  int age;
+}Person;
+
+Person p1 = {female, "Lucy", 22};
+p1.gender = male;
+```
+
+  - **typedef 사용하는 방식**
+    - **typedef enum typeName {identifier list} aliasName**
+    - **typedef enum typeName aliasName**
+    - "typedef struct 구조체이름{ ... }구조체별칭;" 같은 느낌
+
+```c
+typedef enum floor {_1th, _2nd, _3rd} Floor;
+Floor f1 = _1th;
+```
 
 ## 3. 열거형 타입과 int형 타입
 
