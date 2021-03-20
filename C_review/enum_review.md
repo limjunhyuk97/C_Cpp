@@ -48,7 +48,7 @@ typedef enum color{RED, GREEN, BLUE} Color;
 
 ## 2. 열거형 타입 변수의 선언(+2)
 
-  - **typedef 사용하지 않는 방식**
+### 1. **typedef 사용하지 않는 방식**
     - **enum typeName {identifier list} variableName;**  
     - "struct 구조체이름 구조체변수;" 같은 느낌
 
@@ -63,7 +63,7 @@ Person p1 = {female, "Lucy", 22};
 p1.gender = male;
 ```
 
-  - **typedef 사용하는 방식**
+### 2. **typedef 사용하는 방식**
     - **typedef enum typeName {identifier list} aliasName**
     - **typedef enum typeName aliasName**
     - "typedef struct 구조체이름{ ... }구조체별칭;" 같은 느낌
