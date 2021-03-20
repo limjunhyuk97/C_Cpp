@@ -64,8 +64,8 @@ p1.gender = male;
 ```
 
 ### 2. **typedef 사용하는 방식**
-  - **typedef enum typeName {identifier list} aliasName**
-  - **typedef enum typeName aliasName**
+  - **typedef enum typeName {identifier list} aliasName;**
+  - **aliasName variableName;**
   - "typedef struct 구조체이름{ ... }구조체별칭;" 같은 느낌
 
 ```c
