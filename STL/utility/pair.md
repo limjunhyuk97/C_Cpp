@@ -74,12 +74,15 @@ int main(void) {
 	vec.push_back(pair22);
 	vec.push_back(pair23);
   
-  // 기본적인 pair에 대한 정렬
+  // 기본적인 pair에 대한 정렬 - 오름차순으로 정렬한다.
 	sort(vec.begin(), vec.end());
 	for (iter = vec.begin(); iter < vec.end(); ++iter) {
 		cout << iter->first << " " << iter->second << '\n';
 	}
 	cout << '\n';
+	// 2 hello!
+	// 3 whaat
+	// 3 yello!
   
   // greater을 통한 pair 정렬
 	sort(vec.begin(), vec.end(), greater<pair<int, string>>());
