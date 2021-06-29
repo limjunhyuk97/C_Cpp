@@ -39,3 +39,16 @@ int main(void) {
 	return 0;
 }
 ```
+
+## [rbegin, rend](http://www.soen.kr/lecture/ccpp/cpp4/39-3-3.htm)
+  - 역방향 순회를 하고 싶을 떄, 단순히 v.end() 부터 시작해서는 안되는 이유이다.
+
+![image](https://user-images.githubusercontent.com/59442344/123751871-28514780-d8f3-11eb-9827-0bc9b445a685.png)
+
+```cpp
+// 역방향 순회의 예시
+vector<int>::reverse_iterator rit;
+     for (rit=vi.rbegin();rit!=vi.rend();rit++) {
+          printf("%d\n",*rit);
+     }
+```
