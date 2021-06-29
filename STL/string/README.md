@@ -1,7 +1,9 @@
 # string
 
 ## string parsing
-  - string.find를 사용하여 parsing 하는 방식
+
+### 1. string.find를 사용하여 parsing 하는 방식
+
 ```cpp
 // string.find 함수를 사용한 tokenizing
 // 찾고자 하는 문자(열)을 찾으면 문자열이 위치한 주소 값을 반환
@@ -33,6 +35,34 @@ int main(void) {
 
 	for (auto iter = parsed.begin(); iter != parsed.end(); ++iter)
 		cout << *iter << '\n';
+
+	return 0;
+}
+```
+
+### 2. istringstream를 사용하여 parsing 하는 방식
+
+```cpp
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main(void) {
+
+	string str, tmp;
+	vector<string> parsed;
+
+	getline(cin, str);
+
+	istringstream ss(str);
+	while (getline(ss, tmp, ',')) {
+		parsed.push_back(tmp);
+	}
+
+	for (int i = 0; i < parsed.size(); ++i)
+		cout << parsed[i] << '\n';
 
 	return 0;
 }
