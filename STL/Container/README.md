@@ -4,7 +4,7 @@
 ## 1. Sequence Container
 
 ### 1.1 array
-### 1.2 vector
+### [1.2 vector](https://github.com/limjunhyuk97/Cpp/tree/main/STL/Container/Sequence%20Container/vector)
 ### 1.3 deque
 ### 1.4 list
 
