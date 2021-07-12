@@ -56,8 +56,10 @@ int main(void) {
 
 	for (auto iter = arr.begin(); iter != arr.end(); ++iter) {
 		if (*iter == 5) {
-      // iter가 사라지게 되어, 이후부터 오류가 발생한다.
+		
+      			// iter가 사라지게 되어, 이후부터 오류가 발생한다.
 			arr.erase(iter);
+			
 		}
 		else
 			cout << *iter << " ";
@@ -67,7 +69,8 @@ int main(void) {
 	vector<int>::iterator iter = arr.end();
 
 	arr.push_back(12);
-  // iter는 push_back()으로 값이 무효화되기에 오류가 발생한다.
+	
+  	// iter는 push_back()으로 값이 무효화되기에 오류가 발생한다.
 	cout << *(iter-1) << "\n";
 
 	return 0;
