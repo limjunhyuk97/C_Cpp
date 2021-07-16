@@ -17,7 +17,10 @@
 //		2.1 functional object 자료형 전달, operator() : < 내림차순, > 오름차순
 
 // 정렬기준의 우선순위 (sort, priority_queue 모두 해당)
-// 내장함수에서의 정의보다, 나중에 전달된 functional object의 정의 혹은 function의 정의가 우선한다
+//   : 내장함수에서의 정의보다, 나중에 전달된 functional object의 정의 혹은 function의 정의가 우선한다
+
+// 왜 priority_queue에서는 정렬방식이 반대인가?
+//   : max_heap 구조가 기본적인 구조이기 때문이다.
 
 #include <iostream>
 #include <queue>
