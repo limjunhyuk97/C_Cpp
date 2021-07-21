@@ -20,10 +20,10 @@
 
 ## 4. map, set, list, vector, hash map
 
-#### 1. map, set : 삽입, 삭제, 탐색 = O(logN)
-#### 2. list : 삽입, 삭제 = O(1), 탐색 = O(N)
-#### 3. vector : 삽입, 삭제, 탐색 = O(N), 임의 원소 접근 = O(1)
-#### 4. map VS hashMap
+### 4.1 map, set : 삽입, 삭제, 탐색 = O(logN)
+### 4.2 list : 삽입, 삭제 = O(1), 탐색 = O(N)
+### 4.3 vector : 삽입, 삭제, 탐색 = O(N), 임의 원소 접근 = O(1)
+### 4.4 map VS hashMap
 
 |Map|Hash Map|
 |:---:|:---:|
@@ -31,14 +31,40 @@
 |자료가 정렬되어 저장|자료가 정렬되지 않고 저장|
 |O(logN) 탐색속도|O(1) 탐색속도|
 
-#### 5. set VS map
+### 4.5 set VS map
 
 |set|map|
 |:---:|:---:|
 |key 값만을 저장할 때 사용|key-value 쌍을 저장할 때 사용|
 
-## 4. Map 사용방식
+## 5. Map 사용방식
+
+### 5.1 key-value 쌍 추가
+  - [] operator 이용 : [key]에 해당하는 value 값을 부여
+  - .insert() 이용 : insert( pair 객체 )를 통해서 key, value 쌍을 pair 객체로 추가
 
 ```cpp
+// key(string) - value(pair<string, int> 쌍)
+typedef map<string , pair<string ,int> > profile;
 
+profile parent;
+// [] operator의 이용
+parent[key] = { name, 1 };
+parent[key] = pair<string, int>(name, 1);
+parent[key] = make_pair(name , 1);
+
+// .insert()의 이용
+parent.insert( name, {name, 1} );
+parent.insert( name, pair<string, int>(name, 1) );
+parent.insert( pair<string, pair<string, int> >(name, pair<string, int>(name, 1)) );
+```
+
+### 5.2 key의 존재여부 확인
+  - .count(key) : key가 존재한다면 1 값 반환, key가 존재하지 않으면 0 값 반환
+  - .find(key) : key가 존재한다면 key의 iterator 값 반환
+
+```cpp
+// 만약 parent에 name이라는 key가 존재하지 않는다면, insert 해라.
+profile::iterator iter = parent.find(name);
+if (iter == parent.end()) parent.insert(pair<string, pair<string, int> >(name, pair<string, int>(name, 1)));
 ```
