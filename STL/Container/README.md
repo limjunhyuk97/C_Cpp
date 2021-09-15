@@ -3,7 +3,7 @@
 
 ## 1. Sequence Container
 
-### [1.1 array](https://github.com/limjunhyuk97/Cpp/edit/main/STL/Container/Sequence%20Container/array/README.md)
+### [1.1 array](https://github.com/limjunhyuk97/Cpp/tree/main/STL/Container/Sequence%20Container/array)
 ### [1.2 vector](https://github.com/limjunhyuk97/Cpp/tree/main/STL/Container/Sequence%20Container/vector)
 ### 1.3 deque
 ### 1.4 list
