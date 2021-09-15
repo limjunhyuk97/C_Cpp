@@ -95,7 +95,3 @@ ostream& operator<<(ostream &ostm, array<int, T> arr){
     return ostm;
 }
 ```
-
-
-
-
