@@ -1,6 +1,6 @@
 // struct //
 
-// sort (struct 내장 함수, functional object, function)
+// sort에서 우선순위 정하기 (struct 내 함수 정의, functional object, function, STL 내장 템플릿 함수)
 // 1. struct 안에 함수 내장
 //		- operator< 에 대한 연산자 오버로딩에 의해서 정렬 순서를 정의 : < 오름차순, > 내림차순
 //		- operator> 에 대해서는 해당사항 없음
@@ -8,7 +8,7 @@
 //		2.1 functional object 객체 전달, operator() : < 오름차순, > 내림차순
 //		2.2 function 정의, struct인자 두개 받기 : < 오름차순, > 내림차순
 
-// priority_queue (struct 내장 함수, functional object)
+// priority_queue에서 우선순위 정하기 (struct 함수정의, functional object, STL 내장 템플릿 함수)
 // 1. struct 안에 함수 내장
 //		- 반드시 const 함수로 선언하기!
 //		- operator< 에 대한 연산자 오버로딩에 의해서 정렬 순서를 정의 : < 내림차순, > 오름차순
