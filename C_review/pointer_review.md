@@ -151,45 +151,52 @@ function(int array[*])
 
 ## n 차원
 
+- **포인터 선언**
+
 ```cpp
 // 포인터 선언
 char **p;
 int **p;
-
 ```
-		포인터 값 선언
-		: char **p	/ int **p              다차원 포인터 선언 입니다.
-		
-		다중 포인터
-		: int a;                          1) a의 포인터가 b이다. b의 포인터가 c이다. 
-		  int *b;                            a 값 - a 포인터 == b 값 - b 포인터 == c 값 - c 포인터			    
-		  int **c;                        2) scanf에서의 표현 : scanf("%d", &a) 결과 == scanf("%d", b) 결과 == scanf("%d", *c);
-		  b = &a;                         3) printf에서의 포현 : printf("%d", a) 결과 == printf("%d", *b) 결과 == printf("%d", **c);
-		  c = &b; 
-		
-		다차원 배열과 포인터 수준의 표현 
-		: int arr[3][3];
-		  arr[3][1] == *(arr[3]+1) == *(*(arr+3)+1);
-		  
-		2차원 동적할당
-		: int **table;                                    1) 2차원 포인터를 생성
-		  table = (int **)malloc(sizeof(int *) * row);    2) 행의 갯수를 동적할당 
-		  for(int i=0; i<row; ++i){                       3) 행 속에 열의 갯수를 동적할당 
-		  table[i] = (int *)malloc(sizeof(int) * col);
-		  }
-		  
-		2차원 동적할당 해제
-		: for(int i=0; i<col; ++i){                       1) 행 앞머리부터 할당 해제 
-		  free(table[i]);
-		  }
-		  free(table);                                    2) 배열 전체 할당 해제 
-		  
 
+- **다차원 배열과 포인터 표현**
 
+```cpp
+int arr[3][3];
 
-	***** 기타 사항 *****
-	
-	- char *c;				// char형을 저장할 수 있는 포인터일 뿐이기에, 문자열을 저장할 수 없다.
-	
-	- char c[] = "Hello World!";		// 배열을 선언과 동시에 초기화 한다면, 배열 길이의 선언을 생략할 수 있다. 
+arr[3][1] == *(arr[3]+1) == *(*(arr+3)+1);
+```
+
+- **2차원 동적할당**
+
+```cpp
+int **table;
+
+// row
+table = (int **)malloc(sizeof(int *) * row);
+
+// col
+for(int i=0; i<row; ++i){
+  table[i] = (int *)malloc(sizeof(int) * col);
+}
+```
+
+- **2차원 동적할당의 해제**
+
+```cpp
+// col
+for(int i=0; i<col; ++i){
+  free(table[i]);
+}
+
+// row
+free(table);
+```
+
+## MISC.
+
+- **char * c : 문자열을 런타임에 넣을 수 없다. char형 변수의 포인터 이기 때문이다.**
+- **char * c = "dsjfls ksdf" 로 선언과 동시에 초기화하는 것은 가능**
+- **char c[] = "Hello world!"; : 배열을 선언과 동시에 초기화한다면, 배열의 길이 선언을 생략 할 수 있다.**
+
 		  
