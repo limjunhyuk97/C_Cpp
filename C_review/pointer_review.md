@@ -22,107 +22,141 @@
 ## 1 차 원
 	
 ### 할 당
-	
-- **포인터 값 선언**
+
+- **포인터 선언**
 
 ```cpp
-char 
+// 포인터 값 선언
+char *p
+int *p;
 ```
-		: char *p	/ int *p               포인터 선언 입니다.
-		
-		<정수/문자> 
-		정수 <- 포인터값 ( call - by - reference에서 swap함수 설계 시에 사용! )
-		: int num;                       num이라는 정수 변수가 포인터가 갖는 주소값을 갖습니다.
-		  num = *p;									
-		
-		포인터값 <- 정수 포인터 값 (개별 값)
-		: int *p;                        p포인터 값에 변수 a의 포인터 값을 전달합니다.
-	  	int a; 
-	 	  p = &a;	
-	  
-		포인터값 <- 배열 포인터값 (그룹 값)
-		: int *p;                        p포인터 값에 배열arr의 포인터 값을 전달합니다. 
-		  int arr[10];
-		  p = arr;                       p에 배열 이름 ( 배열 이름자체가 배열 0번째 공간 포인터 값을 갖아요! )
-		  p = &arr[0];                   p에 배열 첫 번쨰 공간 값 
-		  p = &arr[1];                   p에 배열 두 번째 공간 값	 
-	  
-	  	포인터와 배열의 관계 
-		: int *p;									
-		  p [ 2 ] == *( p + 2 );	 p포인터를 선언했을 때, '주소가 가리키는 값으로서' p[n]은 *(p+n)과 같습니다 
-		  &p [ 2 ] == ( p + 2 );	 p포인터를 선언했을 때, '주소의 값으로서' &p[n]은 (p+n)과 같습니다 		
-		
-		<문자열> 
-		scanf()를 통한 문자열 할당 - 배열 할당 
-		: char arr[10]; 
-		  scanf("%s", arr);  arr에 &를 붙이지 않는다     // 배열 속으로 문자열의 문자가 공간마다 하나씩 들어감, 마지막에는 \0이 들어간다. 
-		  
-		scanf()를 통한 문자열 할당 - 포인터 할당 - 권하지 않음(불가능) 
-		: char *p;
-		  scanf("%s", p);							 
-		
-		<동적할당>  
-		동적할당
-		: int *arr = (int *)malloc( sizeof(int) * len );           malloc 사용법	
-		: int *arr = (int *)calloc( sizeof(int) , len );           calloc 사용법    (malloc은 공간만 생성하지만, calloc은 공간을 생성하고 값을 0으로 초기화합니다.) 
-		: arr = realloc(arr, Modified_Len * sizeof(int) );         realloc 사용법   (realloc은 할당된 크기를 수정해줍니다.) 
-    : free(arr);                                               free 사용법      (arr가 가리키고 있는 위치를 수정해줍니다.)									
-		
-		
-		**** 출 력 **** 
-		
-		<정수/문자> 
-		: int *p; ...                 포인터의 주소값이 가리키는 정수 값을 출력합니다.
-		  printf(" %d ", *p);						 
-		
-		: int *p; ...                 포인터의 주소값을 출력합니다. 
-		  printf(" %d ", p);						
-		  
-		: int a;                      포인터의 주소값을 출력합니다. 
-		  printf(" %d ", &a);   
-		
-		<문자열> 
-		: char *p = "... "; ...       포인터의 주소값이 가리키는 문자열 값을 출력합니다. // 선언 후 -> 읽기O, 수정X	// 포인터가 문자열 첫 주소 갖고있음 
-		  printf(" %s ", p);q
-		
-		: char arr[100];
-		  printf(" %s ", arr);        배열 속의 문자열을 출력합니다. // 선언 후 -> 읽기O, 수정O						// 배열 속으로 문자열이 하나씩 들어감 
-		  
-		<+문자열 메모리 주소 출력>
-		: int arr[10];                *배열은 포인터 주소들의 연속적인 배열이다. p 포인터를 선언하고 p[1]식의 선언도 가능하다. 
-		  int * p;
-		  p = &arr[1];
-		  printf(" %d %d ", arr[1], p[0]);
-		  
-  	
-		**** 함 수 ****
-	
-		건네주기 
-		: function( &num )                변수의 주소값으로 참조합니다	
-	
-		: function( &array[0] )           배열의 특정값을 주소값으로 찹조합니다
-	
-		: function( array )               배열전체를 주소값으로 참조합니다 
-	
-		선언	
-		: function(int *p)                정수 포인터 값을 참조합니다.	
-		
-		: function(int *p){               그 참조한 포인터 값을 함수 내에서 활용할 때에는 *을 떼고 사용한다.
-			otherfunction(p);               ( 어쨌든 *p라고 선언한 순간 p는 주소값을 이르는 것이기에..) 
-		  }
-	
-		: function(int array[] )          고정 배열전체를 주소값으로 찹조합니다. 
-	
-		: function(int array[*] )         동적 배열전체를 주소값으로 참조합니다. 
-	
-	
-	
 
-	***** 다 차 원 *****
+- **포인터 변수와 일반 변수**
+  - 포인터, 일반변수
+  - 포인터, 배열
+  - 포인터, 문자열
 
-		
-		**** 할 당 **** 
-	
+```cpp
+// 변수에 포인터 값 할당
+int num = *p
+
+void swap(int *n, int *m) {
+  int tmp = *n;
+  *n = *m;
+  *m = tmp;
+}
+
+// 포인터에 변수 주소 할당
+int a;
+int *p = &a;
+
+// 포인터에 배열 주소 할당
+int *p;
+int arr[10];
+p = arr;
+p = &arr[0];
+p = &arr[1];
+
+// 배열의 특정 위치를 가리키는 여러가지 방법
+p[2] == *(p + 2)
+&p[2] == (p + 2)
+
+// 문자열과 포인터 : scanf()로 문자열 받아들이기
+char arr[10];
+scanf("%s", arr); 
+```
+
+- **동적할당 (int형 배열의 예)**
+
+```cpp
+// malloc
+int *arr = (int *)malloc( sizeof(int) * len );
+
+// calloc
+int *arr = (int *)calloc( sizeof(int) , len );
+
+// realloc
+arr = realloc(arr, Modified_Len * sizeof(int) );
+
+// free
+free(arr);
+```
+
+### 출력
+
+- **정수, 문자 출력**
+
+```cpp
+// 정수 포인터 변수와 출력
+int *p;
+printf(" %d ", *p);
+printf(" %d ", p);
+printf(" %p ", p);
+
+// 문자 포인터 변수와 출력
+
+```
+
+- **문자열의 출력 (결국 배열)**
+
+```cpp
+// 문자열 포인터 변수와 출력
+
+// 선언 후 읽기O, 수정X : (1) ksd vsdf / (2) k
+char *p = "ksd vsdf";
+printf("%s", p);
+printf("%c", *p);
+
+// 선언 후 읽기O, 수정O
+char arr[100];
+printf("%s", arr);
+```
+
+- **문자열 메모리 주소 출력**
+
+```cpp
+int arr[10];
+int *p;
+p = &arr[1];
+printf("%d %d", arr[1], p[0]);
+```
+
+### 함수
+
+- **함수 인자 건네기**
+
+```cpp
+// 변수의 주소값 건넴
+function( &num )
+
+// 배열의 측정 값을 건넴
+function( &array[0] )
+
+// 배열의 주소를 건넴(첫 번째 배열 공간의 주소)
+function( array )
+```
+
+- **함수 매개변수 선언**
+
+```cpp
+// 정수 변수 주소 줘라
+function(int *p)
+
+// 고정 배열을 주소값으로 참조
+function(int array[])
+
+// 동적 배열을 주소값으로 참조
+function(int array[*])
+```
+
+## n 차원
+
+```cpp
+// 포인터 선언
+char **p;
+int **p;
+
+```
 		포인터 값 선언
 		: char **p	/ int **p              다차원 포인터 선언 입니다.
 		
